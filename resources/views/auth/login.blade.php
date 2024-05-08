@@ -129,5 +129,3 @@
 		</div>
 	</div>
 @endsection
-
-<!--- Testing --->
