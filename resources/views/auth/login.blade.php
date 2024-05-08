@@ -111,7 +111,7 @@
 						</div>	
 
 						<div class="my-3 text-end">
-							<a href="#!">Lost Password?</a>
+							<a href="{{ url('auth/forgotpassword') }}">Lost Password?</a>
 						</div>
 
 						<div class="d-block mb-3">
@@ -129,3 +129,5 @@
 		</div>
 	</div>
 @endsection
+
+<!--- Testing --->
