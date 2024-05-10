@@ -92,3 +92,40 @@ const AuthVue3 = createApp(
 		this.responseMessage;
 	}
 }).mount('#ph-app-auth');
+
+const AuthVueDemo = createApp(
+{
+	data()
+	{
+		return {
+			reponseData: '',
+			responseMessage: '',
+			responseStatus: ''
+		}
+	},
+	methods: 
+	{
+		listData: function()
+		{
+			if (document.querySelector(".ar-fetch-listdata") !== null && 
+				document.querySelector(".ar-fetch-listdata").getAttribute("data-url") !== null)
+			{
+				const url = document.querySelector(".ar-fetch-listdata").getAttribute("data-url");
+
+				axios.get(url)
+				.then(response => 
+				{
+					console.log(response.data);
+				})
+				.catch(function(error) 
+				{
+					console.log(error.response);
+				});
+			}
+		}
+	},
+	created()
+	{
+		this.listData();
+	}
+}).mount('#ph-app-demo');

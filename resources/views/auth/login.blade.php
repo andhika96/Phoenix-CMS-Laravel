@@ -131,9 +131,10 @@
 				</div>
 			</div>
 
-			<div class="col-lg-7 p-0 d-none d-lg-flex">
-				<div class="ph-bg-image ph-border-bottom-left-leaf" style="background-image: url({{ asset('assets/images/trees-on-forest-at-daytime-1083515.jpg') }});"></div>
-
+			<div class="col-lg-7 p-0 ph-border-bottom-left-leaf d-none d-lg-flex justify-content-center align-items-center" style="background-color: #ffeaea;">
+				<div class="ph-bg-image ph-border-bottom-left-leaf d-none" style="background-image: url({{ asset('assets/images/trees-on-forest-at-daytime-1083515.jpg') }});"></div>
+				
+				<img src="{{ asset('assets/svgs/undraw_welcome_re_h3d9.svg') }}" class="100-h" style="width: 300px;">
 				<img src="{{ asset('assets/images/pexels-visually-us-1643402.jpg') }}" class="img-fluid d-none">
 			</div>
 		</div>
