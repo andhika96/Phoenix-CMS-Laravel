@@ -123,4 +123,13 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
+    'aliases' => Illuminate\Support\Facades\Facade::defaultAliases()->merge([
+        // 'Example' => App\Facades\Example::class,
+        "Helper" => App\Helper\Helper::class,
+
+        // ENUM
+        "BrandType" => App\Enums\BrandTypeEnum::class,
+        "OrderStatus" => App\Enums\OrderStatusEnum::class,
+        "PostType" => App\Enums\PostTypeEnum::class
+    ])->toArray(),
 ];
