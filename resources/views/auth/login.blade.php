@@ -125,12 +125,6 @@
 
 							<div class="text-center">
 								<span class="text-body-tertiary">Not registered?</span> <a href="{{ url('auth/signup') }}">Create account</a>
-								
-								@{{ responseMessage }}
-
-								<span v-html="responseMessage"></span>
-
-								<a href="#!" v-on:click="testingClick('{{ $testing }}')">TESTING</a>
 							</div>
 						</form>
 					</div>

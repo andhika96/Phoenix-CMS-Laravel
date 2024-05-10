@@ -53,19 +53,21 @@ class AuthController extends Controller
 		// 	'password' => ['required'],
 		// ]);
 
-		// if (Auth::attempt($credentials)) 
-		// {
-		// 	$request->session()->regenerate();
+		if (Auth::attempt($request->validated())) 
+		{
+			$request->session()->regenerate();
 
-		// 	return redirect()->intended('/dashboard');
-		// }
+			// return redirect()->intended('/dashboard');
+
+			return response()->json(['status' => 'success', 'message' => 'Success', 'redirect_url' => url('dashboard')]);
+		}
 
 		// return back()->withErrors([
 		// 	'email' => 'The provided credentials do not match our records.',
 		// 	'password' => 'The password credentials do not match our records.',
 		// ]);
 
-		return response()->json(['kontol' => $request]);
+		//return response()->json(['kontol' => $request]);
 	}
 
 	// public function signup()
