@@ -55,6 +55,15 @@ interface IBaseService
     public function list(): Collection;
 
     /**
+     * Update a records
+     * 
+     * @param array attributes data.
+     * @param $idOrSlug id or slug of instance to delete.
+     * @return Model updated instance
+     */
+    public function update(array $data, $idOrSlug): ?Model;
+
+    /**
      * Delete a record.
      *
      * @param $idOrSlug id or slug of instance to delete.

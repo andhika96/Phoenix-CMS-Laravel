@@ -11,9 +11,4 @@ class UserService extends BaseService implements IUserService
     {
         parent::__construct($model);
     }
-
-    public function addRole(User $user, $roles)
-    {
-        
-    }
 }
