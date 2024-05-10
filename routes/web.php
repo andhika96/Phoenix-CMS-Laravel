@@ -9,6 +9,7 @@ Route::get('/', function () {
 // ------------------------------------------------------------------------
 
 Route::get('/dashboard', [App\Http\Controllers\Web\Dashboard\DashboardController::class, 'index'])->middleware('auth');
+Route::get('/dashboard/testcreaterole', [App\Http\Controllers\Web\Dashboard\DashboardController::class, 'testCreateRole'])->middleware('auth');
 
 // ------------------------------------------------------------------------
 
@@ -21,7 +22,7 @@ Route::redirect('/auth', '/auth/login');
 Route::redirect('/login', '/auth/login')->name('login');
 
 Route::get('auth/login', [App\Http\Controllers\Web\Auth\AuthController::class, 'login'])->name('auth.login');
-Route::post('auth/login', [App\Http\Controllers\Web\Auth\AuthController::class, 'login_validate'])->name('auth.login.validate');
+Route::post('auth/login', [App\Http\Controllers\Web\Auth\AuthController::class, 'authenticate'])->name('auth.login.authenticate');
 Route::get('auth/logout', [App\Http\Controllers\Web\Auth\AuthController::class, 'logout'])->name('auth.logout');
 
 Route::get('auth/asd', [App\Http\Controllers\Web\Auth\AuthController::class, 'asd'])->name('auth.login');

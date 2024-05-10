@@ -3,19 +3,22 @@
 namespace App\Http\Controllers\Web\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\AuthRequest;
 
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
+
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
 	public function login(Request $request)
 	{
-		return view('auth.login');
+		return view('auth.login', ['testing' => 'GOBLOK']);
 	}
 
 	public function login2(Request $request)
@@ -40,25 +43,29 @@ class AuthController extends Controller
 		// exit;
 	}
 
-	public function login_validate(Request $request): RedirectResponse
+	public function authenticate(AuthRequest $request)
 	{
-        $credentials = $request->validate(
-		[
-            'email' => ['required'],
-            'password' => ['required'],
-        ]);
+		// $request->validate();
 
-		if (Auth::attempt($credentials)) 
-		{
-			$request->session()->regenerate();
+        // $credentials = $request->validate(
+		// [
+		// 	'email' => ['required'],
+		// 	'password' => ['required'],
+		// ]);
 
-			return redirect()->intended('/dashboard');
-		}
+		// if (Auth::attempt($credentials)) 
+		// {
+		// 	$request->session()->regenerate();
 
-		return back()->withErrors([
-			'email' => 'The provided credentials do not match our records.',
-			'password' => 'The password credentials do not match our records.',
-		]);
+		// 	return redirect()->intended('/dashboard');
+		// }
+
+		// return back()->withErrors([
+		// 	'email' => 'The provided credentials do not match our records.',
+		// 	'password' => 'The password credentials do not match our records.',
+		// ]);
+
+		return response()->json(['kontol' => $request]);
 	}
 
 	// public function signup()

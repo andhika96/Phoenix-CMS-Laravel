@@ -23,6 +23,10 @@
 		background-repeat: no-repeat;
 		background-position: center center;
 		background-size: cover;
+
+		box-shadow: -1px 2px 5px 0px rgba(0,0,0,0.25);
+		-webkit-box-shadow: -1px 2px 5px 0px rgba(0,0,0,0.25);
+		-moz-box-shadow: -1px 2px 5px 0px rgba(0,0,0,0.25);
 	}
 
 	.ph-border-top-left-leaf
@@ -82,7 +86,7 @@
 
 	</style>
 
-	<div>    
+	<div id="ph-app-auth">    
 		<div class="row g-0">
 			<div class="col-lg-5 d-flex justify-content-center align-items-center vh-100">
 				<div class="w-100 ph-form-auth">
@@ -91,40 +95,52 @@
 						<p class="text-muted mb-0">Sign in to your account to continue.</p>
 					</div>
 
-					<div class="d-block">
-						<div class="input-group ph-input-group mb-3">
-							<span class="input-group-text"><i class="fad fa-user"></i></span>
-							
-							<div class="form-floating">
-								<input type="email" class="form-control form-control-sm font-size-inherit" id="floatingInput" placeholder="name@example.com">
-								<label for="floatingInput">Email address</label>
+					<div class="d-block" id="ph-form-login-submit">
+						<form action="{{ route('auth.login.authenticate') }}" method="post" @submit="login" ref="formHTML">
+							<div class="input-group ph-input-group mb-3">
+								<span class="input-group-text"><i class="fad fa-user"></i></span>
+								
+								<div class="form-floating">
+									<input type="text" name="email" class="form-control form-control-sm font-size-inherit" id="floatingInput" placeholder="name@example.com">
+									<label for="floatingInput">Email address</label>
+								</div>
 							</div>
-						</div>
 
-						<div class="input-group ph-input-group mb-3">
-							<span class="input-group-text"><i class="fad fa-key"></i></span>
+							<div class="input-group ph-input-group mb-3">
+								<span class="input-group-text"><i class="fad fa-key"></i></span>
 
-							<div class="form-floating">
-								<input type="password" class="form-control form-control-sm font-size-inherit" id="floatingPassword" placeholder="Password">
-								<label for="floatingPassword">Password</label>
+								<div class="form-floating">
+									<input type="password" name="password" class="form-control form-control-sm font-size-inherit" id="floatingPassword" placeholder="Password">
+									<label for="floatingPassword">Password</label>
+								</div>	
 							</div>	
-						</div>	
 
-						<div class="my-3 text-end">
-							<a href="{{ url('auth/forgotpassword') }}">Lost Password?</a>
-						</div>
+							<div class="my-3 text-end">
+								<a href="{{ url('auth/forgotpassword') }}">Lost Password?</a>
+							</div>
 
-						<div class="d-block mb-3">
-							<input type="submit" class="btn btn-primary rounded-pill p-2 w-100" value="Login">
-						</div>
+							<div class="d-block mb-3">
+								<input type="submit" class="btn btn-primary btn-submit-login rounded-pill p-2 w-100" value="Login">
+							</div>
+
+							<div class="text-center">
+								<span class="text-body-tertiary">Not registered?</span> <a href="{{ url('auth/signup') }}">Create account</a>
+								
+								@{{ responseMessage }}
+
+								<span v-html="responseMessage"></span>
+
+								<a href="#!" v-on:click="testingClick('{{ $testing }}')">TESTING</a>
+							</div>
+						</form>
 					</div>
 				</div>
 			</div>
 
 			<div class="col-lg-7 p-0 d-none d-lg-flex">
-				<div class="ph-bg-image ph-border-bottom-left-leaf" style="background-image: url({{ asset('assets/images/pexels-quang-nguyen-vinh-222549-2649403.jpg') }});"></div>
+				<div class="ph-bg-image ph-border-bottom-left-leaf" style="background-image: url({{ asset('assets/images/trees-on-forest-at-daytime-1083515.jpg') }});"></div>
 
-				<img src="{{ asset('assets/images/pexels-quang-nguyen-vinh-222549-2649403.jpg') }}" class="img-fluid d-none">
+				<img src="{{ asset('assets/images/pexels-visually-us-1643402.jpg') }}" class="img-fluid d-none">
 			</div>
 		</div>
 	</div>
