@@ -30,3 +30,16 @@ Route::get('auth/logout', [App\Http\Controllers\Web\Auth\AuthController::class, 
 // ------------------------------------------------------------------------
 
 Route::get('/test', [App\Http\Controllers\Web\Test\TestController::class, 'test']);
+
+
+Route::name('app.')
+    ->prefix('app')
+	->namespace('App\Http\Controllers\Web')
+	->group(function () {
+		Route::name('user.')
+            ->prefix('user')
+			->controller(\User\UserController::class)
+			->group(function () {
+				Route::get('/', 'index')->name('index');
+			});
+        });

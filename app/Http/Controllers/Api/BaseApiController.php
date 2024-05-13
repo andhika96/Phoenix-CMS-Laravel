@@ -110,6 +110,7 @@ class BaseApiController extends Controller
                 'total' => $paginatedData->total(),
                 'limit' => $paginatedData->perPage(),
                 'last_page' => $paginatedData->lastPage(),
+                'total_page' => ceil($paginatedData->total()/$paginatedData->perPage())
             ];
         } elseif ($paginatedData instanceof Collection) {
             if (is_subclass_of($resource, JsonResource::class)) {
@@ -123,6 +124,7 @@ class BaseApiController extends Controller
                 'total' => $paginatedData->count(),
                 'limit' => $paginatedData->count(),
                 'last_page' => 1,
+                'total_page' => ceil($paginatedData->total()/$paginatedData->perPage())
             ];
         }
 

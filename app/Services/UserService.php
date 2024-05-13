@@ -2,9 +2,7 @@
 
 namespace App\Services;
 
-use App\Contracts\IUserService;
-
-class UserService extends BaseService implements IUserService 
+class UserService extends BaseService
 {
     public function __construct(\App\Models\Account $model)
     {
