@@ -24,7 +24,7 @@ class AuthRequest extends FormRequest
     public function rules(): array
     {
         return [
-           'email' => 'required',
+           'email' => 'required|email',
            'password' => 'required'
         ];
     }
@@ -32,6 +32,6 @@ class AuthRequest extends FormRequest
     protected function failedValidation(Validator $validator)
     {
         // return response()->json(['status' => 'failed', 'message' => $validator->errors()], 422);
-        throw new HttpResponseException(response()->json(['status' => 'failed', 'message' => $validator->errors()], 400));
+        throw new HttpResponseException(response()->json(['status' => 'failed', 'message' => $validator->errors()], 422));
     }
 }

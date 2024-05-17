@@ -59,7 +59,7 @@ class AuthController extends Controller
 
 			// return redirect()->intended('/dashboard');
 
-			return response()->json(['status' => 'success', 'message' => 'Success', 'redirect_url' => url('dashboard')]);
+			return response()->json(['status' => 'success', 'message' => Auth::attempt($request->validated()), 'redirect_url' => url('dashboard')]);
 		}
 
 		// return back()->withErrors([
@@ -67,7 +67,9 @@ class AuthController extends Controller
 		// 	'password' => 'The password credentials do not match our records.',
 		// ]);
 
-		//return response()->json(['kontol' => $request]);
+		// dd($request);
+
+		return response()->json(['status' => 'failed', 'message' => 'The email address or password you entered is incorrect, please try again']);
 	}
 
 	// public function signup()
