@@ -39,7 +39,7 @@ class BaseService implements IBaseService
      * @return Model The created model instance.
      * @throws \Exception If unable to save the model.
      */
-    public function create(array $attr): Model
+    public function create(array $attr)
     {
         // Begin a database transaction
         DB::beginTransaction();

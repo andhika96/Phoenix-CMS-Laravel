@@ -17,7 +17,7 @@ interface IBaseService
      * @param array $attr Data to create the record.
      * @return Model Created model instance.
      */
-    public function create(array $attr): Model;
+    public function create(array $attr);
 
     /**
      * Create multiple records.

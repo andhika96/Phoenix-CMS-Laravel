@@ -14,10 +14,8 @@ class Account extends Authenticatable
 
     protected $table = 'accounts';
 
-    protected $fillable = [
-        'username',
-        'email',
-        'password',
+    protected $guarded = [
+        'id',
     ];
 
     protected $hidden = [

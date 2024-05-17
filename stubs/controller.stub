@@ -1,18 +1,28 @@
 <?php
 
-namespace App\Http\Controllers\Web\User;
+namespace {{ namespace }};
 
-use App\Http\Controllers\Controller;
+use {{ rootNamespace }}Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class UserController extends Controller
+use App\Models\{{ class }};
+use App\Services\UserService;
+
+class {{ class }} extends Controller
 {
+    public UserService $userService;
+
+    public function __construct()
+    {
+        $this->userService = new UserService(new {{ class }}());
+    }
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('user.index');
+        //
     }
 
     /**
@@ -28,7 +38,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        
+        //
     }
 
     /**
