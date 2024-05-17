@@ -186,7 +186,7 @@
                         document.querySelector(".ar-fetch-listdata").getAttribute("data-url") !== null
                     ) {
                         const url = document.querySelector(".ar-fetch-listdata").getAttribute("data-url");
-                        axios.get(url+'name?='+getData)
+                        axios.get(url+'?name='+getData)
                             .then(response => {
                                 this.responseData = response.data.data;
                                 this.getTotalData = response.data.total;
@@ -195,7 +195,7 @@
                                 this.responseStatus = response.data.status;
                                 this.responseMessage = response.data.message;
 
-                                // console.log(this.responseData);
+                                console.log(this.responseData);
                             })
                             .catch(function(error) {
                                 this.responseStatus = response.data.status;
