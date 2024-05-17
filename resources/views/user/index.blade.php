@@ -185,7 +185,7 @@
                         document.querySelector(".ar-fetch-listdata") !== null &&
                         document.querySelector(".ar-fetch-listdata").getAttribute("data-url") !== null
                     ) {
-                        this.loading = true;  // Set loading state to true
+                        this.loadingnextpage = true;
 
                         const url = document.querySelector(".ar-fetch-listdata").getAttribute("data-url");
 
@@ -207,7 +207,10 @@
                                 console.log(error.response);
                             })
                             .finally(() => {
-                                this.loadComplete();
+                                // this.loadComplete();
+
+                                 this.loading = false;
+                                 this.loadingnextpage = false;
                             });
                     }
                 },
