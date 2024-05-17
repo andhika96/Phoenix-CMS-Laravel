@@ -98,10 +98,14 @@ const AuthVueDemo = createApp(
 	data()
 	{
 		return {
-			reponseData: '',
-			responseMessage: '',
+			responseData: {},
+			responseMessage: 'Hallo',
 			responseStatus: ''
 		}
+	},
+	components: 
+	{
+		paginate: VuejsPaginateNext,
 	},
 	methods: 
 	{
@@ -115,6 +119,8 @@ const AuthVueDemo = createApp(
 				axios.get(url)
 				.then(response => 
 				{
+					this.responseData = response.data.data;
+
 					console.log(response.data);
 				})
 				.catch(function(error) 
@@ -122,10 +128,32 @@ const AuthVueDemo = createApp(
 					console.log(error.response);
 				});
 			}
+		},
+		paginate: function()
+		{
+
+		},
+		dataTables: function()
+		{
+			// $(document).ready( function ()
+			// {
+				const table = new DataTable('.myTable2', {
+				    data: [ {name: 'Andhika', position: 'Leader', salary: '20M'}, {name: 'Andhika 2', position: 'Leader', salary: '20M'}, {name: 'Andhika', position: 'Leader', salary: '20M'} ],
+				    columns: [
+				        { data: 'name' },
+				        { data: 'position' },
+				        { data: 'salary' }
+				    ]
+				} );
+
+				// console.log(table);
+			// });
 		}
 	},
-	created()
+	mounted()
 	{
 		this.listData();
+
+		this.dataTables();
 	}
 }).mount('#ph-app-demo');

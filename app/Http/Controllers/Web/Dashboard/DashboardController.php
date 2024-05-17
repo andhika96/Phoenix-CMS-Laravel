@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Web\Dashboard;
 use App\Http\Controllers\Controller;
 
 use App\Models\Accounts;
-use App\Models\Blog_Article;
+use App\Models\BlogArticle;
 
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
@@ -22,7 +22,7 @@ class DashboardController extends Controller
         $data = [];
 
         // $blog_articles = DB::table('blog_article')->get();
-        $blog_articles = Blog_Article::get();
+        $blog_articles = BlogArticle::get();
 
         return view('Dashboard.dashboard', ['blog_articles' => $blog_articles]);
     }
@@ -32,6 +32,13 @@ class DashboardController extends Controller
         $role = Role::create(['name' => 'Administrator']);
 
         print_r($role);
+    }
+
+    public function listdata()
+    {
+        $blog_articles = BlogArticle::get();
+
+        return response()->json(['status' => 'success', 'message' => 'Success', 'data' => $blog_articles]);
     }
 }
 
