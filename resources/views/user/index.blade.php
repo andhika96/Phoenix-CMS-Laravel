@@ -7,6 +7,8 @@
             <div><i class="fad fa-calendar-star fa-fw me-2"></i> Accounts/Users</div> 
             <div>
                 <div class="float-md-right font-size-normal">
+                    <input type="text" name="search_user" class="form-control" v-model="getData" @keyup="searchData">
+
                    <button type="button" class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#createUserModalRevs">
                         <i class="fad fa-user-plus fa-fw me-2"></i> Create User
                     </button>
@@ -29,7 +31,6 @@
             class="ar-data-status text-center text-danger h5 p-5" style="display: none">
             @{{ responseMessage }}
         </div>
-
 
         <div v-else class="ar-data-load" style="display: none">
             <div class="ar-fetch-listdata" data-url="{{ route('api.v1.user.index') }}">
@@ -129,6 +130,7 @@
                     responseStatus: '',
                     getCurrentPage: '',
                     pageUrl: '',
+                    getData: '',
                     getTotalData: '',
                     loading: '',
                     loadingnextpage: '',
@@ -152,6 +154,39 @@
                     ) {
                         const url = document.querySelector(".ar-fetch-listdata").getAttribute("data-url");
                         axios.get(url)
+                            .then(response => {
+                                this.responseData = response.data.data;
+                                this.getTotalData = response.data.total;
+                                this.pageCount = response.data.total_page;
+                                this.pageRange = response.data.limit;
+                                this.responseStatus = response.data.status;
+                                this.responseMessage = response.data.message;
+
+                                // console.log(this.responseData);
+                            })
+                            .catch(function(error) {
+                                this.responseStatus = response.data.status;
+                                this.responseMessage = response.data.message;
+
+                                console.log(error.response);
+                            })
+                            .finally(() => {
+                                this.loadComplete();
+                                console.log(this.responseStatus);
+                                console.log(this.responseMessage);
+                            });
+                    }
+                },
+
+                searchData: function() {
+                    const getData = this.getData.trim();
+
+                    if (
+                        document.querySelector(".ar-fetch-listdata") !== null &&
+                        document.querySelector(".ar-fetch-listdata").getAttribute("data-url") !== null
+                    ) {
+                        const url = document.querySelector(".ar-fetch-listdata").getAttribute("data-url");
+                        axios.get(url+'name?='+getData)
                             .then(response => {
                                 this.responseData = response.data.data;
                                 this.getTotalData = response.data.total;
