@@ -7,7 +7,7 @@
             <div><i class="fad fa-calendar-star fa-fw me-2"></i> Accounts/Users</div> 
             <div>
                 <div class="float-md-right font-size-normal">
-                   <button type="button" class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#createUserModalRevs">
+                   <button type="button" class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#createUserModal">
                         <i class="fad fa-user-plus fa-fw me-2"></i> Create User
                     </button>
                 </div>
@@ -81,34 +81,6 @@
                             </button>
                             <button type="button" class="btn btn-default" :disabled="loading"
                                 data-bs-dismiss="modal">Cancel</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Modal -->
-        <div class="modal fade" id="createUserModalRevs" tabindex="-1" aria-labelledby="createUserModalRevsLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="createUserModalRevsLabel">Create New User Revs</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body" id="ph-form-submit">
-                        <form action="{{ route('api.v1.user.store') }}" method="post" ref="formHTML" @submit.prevent="createDataRevs">
-                            <div class="mb-3">
-                                <label for="userFullName" class="form-label">Full Name</label>
-                                <input type="text" name="fullname" class="form-control" id="userFullName" required>
-                            </div>
-                            
-                            <div class="mb-3">
-                                <label for="userEmail" class="form-label">Email Address</label>
-                                <input type="email" name="email" class="form-control" id="userEmail" required>
-                            </div>
-
-                            <input type="submit" class="btn btn-primary btn-submit" value="Create User">
-                            <button type="button" class="btn btn-default" :disabled="loading" data-bs-dismiss="modal">Cancel</button>
                         </form>
                     </div>
                 </div>
@@ -254,51 +226,6 @@
                     
                     this.listData();
                 },
-
-                createDataRevs: async function(event)
-                {
-                    event.preventDefault();
-
-                    // Get id form submit
-                    let getIdFormSubmit = document.getElementById("ph-form-submit");
-
-                    // Get value of attribute in HTML.
-                    let formActionURL   = getIdFormSubmit.getElementsByTagName("form")[0].getAttribute("action"); 
-                    let formMethod      = getIdFormSubmit.getElementsByTagName("form")[0].getAttribute("method");
-                    
-                    // FormData objects are used to capture HTML form and submit it using fetch or another network method.
-                    let formData = new FormData(this.$refs.formHTML);
-
-                    // Get class button name to change the button to button loading state .
-                    document.getElementsByClassName("btn-submit")[0].insertAdjacentHTML("beforebegin", "<a class=\"btn btn-secondary btn-submit-loading p-2\">Submitting <div class=\"spinner-border spinner-border-sm text-light ml-1\" role=\"status\"><span class=\"sr-only\">Loading...</span></div></a>");
-                    document.getElementsByClassName("btn-submit")[0].remove();
-
-                    axios(
-                    {
-                        url: formActionURL,
-                        method: formMethod,
-                        data: formData,
-                        headers: {"Content-Type": "multipart/form-data", 'X-Requested-With': 'XMLHttpRequest'}
-                    })
-                    .then(response => 
-                    {
-                        const modalToggleNewUser = bootstrap.Modal.getOrCreateInstance("#createUserModalRevs"); 
-
-                        modalToggleNewUser.hide();
-
-                        document.getElementsByClassName("btn-submit-loading")[0].insertAdjacentHTML("beforebegin", "<a class=\"btn btn-success btn-logged p-2\">Success <i class=\"far fa-check-circle fa-fw mr-1\"></i></div></a>");
-                        document.getElementsByClassName("btn-submit-loading")[0].remove();
-
-                        console.log(response.data);
-                    })
-                    .catch(error =>
-                    {
-                        document.getElementsByClassName("btn-submit-loading")[0].insertAdjacentHTML("beforebegin", "<input type=\"submit\" class=\"btn btn-primary btn-submit p-2\" value=\"Login\">");
-                        document.getElementsByClassName("btn-submit-loading")[0].remove();
-
-                        console.log(error.response.data);
-                    });
-                }
             },
 
             mounted() {

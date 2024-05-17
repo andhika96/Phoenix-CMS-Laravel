@@ -35,8 +35,7 @@
 
 			<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 			<script src="https://unpkg.com/vuejs-paginate-next@latest/dist/vuejs-paginate-next.umd.js"></script>
-<<<<<<< HEAD
-
+			
 			<script type="module"> 
 				import blitzar from "https://cdn.jsdelivr.net/npm/blitzar@1.2.4/+esm"
 			</script>
@@ -46,12 +45,6 @@
 
 			<script src="{{ url('assets/js/vuejs-v3-2024.js') }}"></script>
 
-
-			@stack('')
-=======
-			<script src="{{ url('assets/js/vuejs-v3-2024.js') }}"></script>
-
 			@stack('js')
->>>>>>> a049bff3284202b8af299fb700a70f19923ab5cc
 	</body>
 </html>
