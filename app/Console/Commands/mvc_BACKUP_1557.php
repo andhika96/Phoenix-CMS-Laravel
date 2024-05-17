@@ -20,12 +20,18 @@ class mvc extends Command
      * @var string
      */
     protected $description = 'This command to automaticaly create MVC';
-    
+
+<<<<<<< HEAD
+    protected $type = 'Action';
+
+=======
+>>>>>>> a049bff3284202b8af299fb700a70f19923ab5cc
     /**
      * Execute the console command.
      */
     public function handle()
     {
+<<<<<<< HEAD
         // Create Model
         Artisan::call('make:model '.$this->argument("requestNameMVC").'/'.$this->argument("requestNameMVC").' -ms');
 
@@ -40,6 +46,16 @@ class mvc extends Command
 
         // Create custom controller
         Artisan::call('make:custom-controller Web/'.$this->argument("requestNameMVC").'/'.$this->argument("requestNameMVC").'Controller --m='.$this->argument("requestNameMVC").'/'.$this->argument("requestNameMVC").' --s='.$this->argument("requestNameMVC").'');
+=======
+        // Create Controller
+        Artisan::call('make:controller Web/'.$this->argument("requestNameMVC").'/'.$this->argument("requestNameMVC").' --requests --resource');
+        
+        // Create View
+        Artisan::call('make:view '.strtolower($this->argument("requestNameMVC")).'/'.strtolower($this->argument("requestNameMVC")));
+        
+        // Create Model
+        Artisan::call('make:model '.strtolower($this->argument("requestNameMVC")).'/'.strtolower($this->argument("requestNameMVC")));
+>>>>>>> a049bff3284202b8af299fb700a70f19923ab5cc
 
         $this->info('MVC Created! <created by Andhika Adhitia N>');
     }

@@ -6,17 +6,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Passport\HasApiTokens;
 
 class Account extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, HasApiTokens;
 
     protected $table = 'accounts';
 
-    protected $fillable = [
-        'username',
-        'email',
-        'password',
+    protected $guarded = [
+        'id',
     ];
 
     protected $hidden = [

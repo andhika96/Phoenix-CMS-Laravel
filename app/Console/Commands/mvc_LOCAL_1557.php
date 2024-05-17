@@ -20,7 +20,9 @@ class mvc extends Command
      * @var string
      */
     protected $description = 'This command to automaticaly create MVC';
-    
+
+    protected $type = 'Action';
+
     /**
      * Execute the console command.
      */

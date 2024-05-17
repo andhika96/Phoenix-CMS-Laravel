@@ -40,6 +40,11 @@ return [
             'driver' => 'session',
             'provider' => 'accounts',
         ],
+
+        'api' => [
+            'driver' => 'passport',
+            'provider' => 'accounts',
+        ],
     ],
 
     /*
