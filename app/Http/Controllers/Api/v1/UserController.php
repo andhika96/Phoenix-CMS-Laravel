@@ -31,7 +31,7 @@ class UserController extends BaseApiController
             $orderBy = $orderByColumns ? explode(",", $orderByColumns) : [];
             $any = $request->input('any', false);
             $limit = $request->input('limit', 10);
-            $comparator = $request->input('comparator', '=');
+            $comparator = $request->input('comparator', 'like');
             $qcomparator = QueryAcceptedComparatorEnum::tryFrom($comparator) ?? QueryAcceptedComparatorEnum::EQUAL;
 
             if (isset($indexes['ignoreIds'])) {

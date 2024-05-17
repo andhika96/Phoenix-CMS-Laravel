@@ -147,7 +147,7 @@ class BaseService implements IBaseService
                 });
             }
         }
-
+        // dd($query->get());
         // Ignore specific records if requested
         $query->when(isset($indexes['ignore']), function ($query) use ($indexes) {
             $query->whereNotIn('id', $indexes['ignore']);

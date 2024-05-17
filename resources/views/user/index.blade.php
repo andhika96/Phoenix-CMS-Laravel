@@ -185,8 +185,10 @@
                         document.querySelector(".ar-fetch-listdata") !== null &&
                         document.querySelector(".ar-fetch-listdata").getAttribute("data-url") !== null
                     ) {
+                        this.loading = true;  // Set loading state to true
+
                         const url = document.querySelector(".ar-fetch-listdata").getAttribute("data-url");
-                        axios.get(url+'name?='+getData)
+                        axios.get(url+'?fullname='+getData)
                             .then(response => {
                                 this.responseData = response.data.data;
                                 this.getTotalData = response.data.total;
@@ -205,8 +207,6 @@
                             })
                             .finally(() => {
                                 this.loadComplete();
-                                console.log(this.responseStatus);
-                                console.log(this.responseMessage);
                             });
                     }
                 },
