@@ -121,8 +121,9 @@
 @endsection
 
 @pushonce('js')
-    <script>
-        createApp({
+    <script> 
+
+        const ListDataUser = createApp({
             data() {
                 return {
                     responseData: [],
@@ -178,7 +179,46 @@
                     }
                 },
 
-                searchData: function() {
+                searchData: _.debounce(function() {
+                    const getData = this.getData.trim();
+
+                    if (
+                        document.querySelector(".ar-fetch-listdata") !== null &&
+                        document.querySelector(".ar-fetch-listdata").getAttribute("data-url") !== null
+                    ) {
+                        this.loadingnextpage = true;
+
+                        const url = document.querySelector(".ar-fetch-listdata").getAttribute("data-url");
+
+                        axios.get(url+'?fullname='+getData)
+                            .then(response => {
+                                this.responseData = response.data.data;
+                                this.getTotalData = response.data.total;
+                                this.pageCount = response.data.total_page;
+                                this.pageRange = response.data.limit;
+                                this.responseStatus = response.data.status;
+                                this.responseMessage = response.data.message;
+
+                                console.log(this.responseData);
+                            })
+                            .catch(function(error) {
+                                this.responseStatus = response.data.status;
+                                this.responseMessage = response.data.message;
+
+                                console.log(error.response);
+                            })
+                            .finally(() => {
+                                // this.loadComplete();
+
+                                 this.loading = false;
+                                 this.loadingnextpage = false;
+                            });
+                    }
+                }, 800),
+
+                // To use this function, you can use our custom directive to activate
+                // Our custom directive is v-debounce:1s="YOUR_FUNCTION"
+                searchDataWithVueDebounce: function() {
                     const getData = this.getData.trim();
 
                     if (
@@ -339,11 +379,17 @@
                     });
                 }
             },
-
+            directives: 
+            {
+                debounce: vueDebounce.vueDebounce({ lock: true })
+            },
             mounted() {
                 this.listData();
             }
+        })
+        .mount('#userIndex');
 
-        }).mount('#userIndex');
+        console.log(vueDebounce.vueDebounce({ lock: false }));
+
     </script>
 @endpushonce

@@ -35,7 +35,10 @@
 
 			<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 			<script src="https://unpkg.com/vuejs-paginate-next@latest/dist/vuejs-paginate-next.umd.js"></script>
-			
+			<script src="https://unpkg.com/vue-debounce@latest/dist/vue-debounce.min.js"></script>
+			<script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
+			<script src="https://unpkg.com/vue-debounce@latest/dist/vue-debounce.min.js"></script>
+
 			<script type="module"> 
 				import blitzar from "https://cdn.jsdelivr.net/npm/blitzar@1.2.4/+esm"
 			</script>
