@@ -29,7 +29,7 @@ class UserController extends BaseApiController
             $indexes = $request->all();
             $orderByColumns = $indexes['orderByColumns'] ?? [];
             $orderBy = $orderByColumns ? explode(",", $orderByColumns) : [];
-            $any = $request->input('any', false);
+            $any = $request->input('any', true);
             $limit = $request->input('limit', 10);
             $comparator = $request->input('comparator', 'like');
             $qcomparator = QueryAcceptedComparatorEnum::tryFrom($comparator) ?? QueryAcceptedComparatorEnum::EQUAL;

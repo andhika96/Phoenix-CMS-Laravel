@@ -229,7 +229,7 @@
 
                         const url = document.querySelector(".ar-fetch-listdata").getAttribute("data-url");
 
-                        axios.get(url+'?fullname='+getData)
+                        axios.get(`${url}?fullname=${getData}&email=${getData}`)
                             .then(response => {
                                 this.responseData = response.data.data;
                                 this.getTotalData = response.data.total;
@@ -261,6 +261,10 @@
                         const url = document.querySelector(".ar-fetch-listdata").getAttribute("data-url");
 
                         this.pageUrl = '?page=' + page;
+                        if (this.getData !== null && this.getData !== "") {
+                            const keyword = this.getData.trim();
+                            this.pageUrl += `&fullname=${keyword}&email=${keyword}`;
+                        }
 
                         this.loadingnextpage = true;
 
