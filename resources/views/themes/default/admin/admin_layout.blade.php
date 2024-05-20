@@ -127,6 +127,11 @@
 								Dashboard
 							</a>
 
+							<a href="{{ url('app/user') }}" class="list-group-item list-group-item-action">
+								<i class="fad fa-tachometer-alt fa-fw me-2"></i>
+								Testing List Data
+							</a>
+
 							<a href="javascript:void(0)" class="list-group-item list-group-item-action collapsed" data-bs-toggle="collapse" data-bs-target="#CollapseManageArticles" role="button" aria-expanded="false" aria-controls="CollapseManageArticles">
 								<span class="text-truncate"><i class="fad fa-newspaper fa-fw me-2"></i> Manage Articles</span>
 							</a>

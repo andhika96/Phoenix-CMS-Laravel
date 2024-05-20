@@ -1,8 +1,8 @@
-@extends('themes.default.layout')
+@extends('themes.default.admin.admin_layout')
 
 @section('content')
-    <div class="arv6-box bg-white p-3 p-md-4 rounded shadow-sm" id="userIndex">
-        <div class="bg-white arv3-pc-content p-3 p-md-4 rounded shadow-sm" id="ar-app-listdata">
+    <div class="arv6-box p-4" id="userIndex">
+        <div id="ar-app-listdata">
 			<div class="h5 pb-3 pb-md-4 mb-3 border-bottom d-flex justify-content-between align-items-center">
             <div><i class="fad fa-calendar-star fa-fw me-2"></i> Accounts/Users</div> 
             <div>
