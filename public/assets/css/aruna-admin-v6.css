@@ -154,6 +154,63 @@ a:focus
 	background-color: rgba(0, 0, 0, 0.8);
 }
 
+[data-bs-theme=light] 
+{
+	body
+	{
+		background-color: #F4F5F7 !important;
+	}
+	
+	.arv6-sidebar
+	{
+		color: var(--bs-body-color);
+		background-color: var(--bs-body-bg);
+	}
+
+	.arv6-box
+	{
+		color: var(--bs-body-color);
+		border: 1px var(--bs-body-bg) solid;
+		border-radius: var(--bs-border-radius);
+		background-color: var(--bs-body-bg);
+		box-shadow: var(--bs-box-shadow-sm);
+	}
+}
+
+[data-bs-theme=dark] 
+{
+	body
+	{
+		color: var(--bs-body-color);
+		background-color: var(--bs-body-bg);
+	}
+
+	.arv6-sidebar
+	{
+		color: var(--bs-body-color);
+		border-right: var(--bs-secondary-bg);
+		background-color: var(--bs-secondary-bg);
+	}
+
+	.arv6-sidebar .arv6-menu .list-group-item
+	{
+		background-color: var(--bs-secondary-bg);
+	}
+
+	.arv6-menu .arv6-title
+	{
+		color: var(--bs-dark-text-emphasis);
+	}
+
+	.arv6-box
+	{
+		color: var(--bs-body-color);
+		border: 1px var(--bs-dark-border-subtle) solid;
+		border-radius: var(--bs-border-radius);
+		background-color: var(--bs-secondary-bg);
+	}
+}
+
 @media (max-width: 767.98px)
 {
 	.arv6-sidebar

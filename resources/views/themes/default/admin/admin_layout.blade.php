@@ -18,7 +18,7 @@
 
 			<!-- Custom CSS -->
 			<link href="{{ asset('assets/css/aruna-v3.css') }}" rel="stylesheet">
-			<link href="{{ asset('assets/css/aruna-admin-v6.css?v=12313') }}" rel="stylesheet">
+			<link href="{{ asset('assets/css/aruna-admin-v6.css?v=8374283') }}" rel="stylesheet">
 			<link href="{{ asset('assets/css/phoenix-cms.css') }}" rel="stylesheet">		
 
 			<title>{{ env("APP_NAME", "LaraPhoex") }} | @yield('title')</title>
@@ -35,64 +35,6 @@
 				}
 				</style>
 			</noscript>
-
-			<style>
-				[data-bs-theme=light] 
-				{
-					body
-					{
-						background-color: #F4F5F7 !important;
-					}
-					
-					.arv6-sidebar
-					{
-						color: var(--bs-body-color);
-						background-color: var(--bs-body-bg);
-					}
-
-					.arv6-box
-					{
-						color: var(--bs-body-color);
-						border: 1px var(--bs-border-color) solid;
-						border-radius: var(--bs-border-radius);
-						background-color: var(--bs-body-bg);
-					}
-				}
-
-				[data-bs-theme=dark] 
-				{
-					body
-					{
-						color: var(--bs-body-color);
-						background-color: var(--bs-body-bg);
-					}
-
-					.arv6-sidebar
-					{
-						color: var(--bs-body-color);
-						border-right: var(--bs-secondary-bg);
-						background-color: var(--bs-secondary-bg);
-					}
-
-					.arv6-sidebar .arv6-menu .list-group-item
-					{
-						background-color: var(--bs-secondary-bg);
-					}
-
-					.arv6-menu .arv6-title
-					{
-						color: var(--bs-dark-text-emphasis);
-					}
-
-					.arv6-box
-					{
-						color: var(--bs-body-color);
-						border: 1px var(--bs-dark-border-subtle) solid;
-						border-radius: var(--bs-border-radius);
-						background-color: var(--bs-secondary-bg);
-					}
-				}
-			</style>
 		</head>
 		
 		<body>
