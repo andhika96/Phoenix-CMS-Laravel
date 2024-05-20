@@ -25,8 +25,10 @@ const AuthVue3 = createApp(
 
 		return {
 			reponseData: '',
-			responseMessage: '<strong>Hello World!</strong>',
-			responseStatus: ''
+			responseMessage: '',
+			responseMessageAfterSubmit: '',
+			responseStatus: '',
+			isArrayMessageAfterSubmit: 0
 		}
 	},
 	methods: 
@@ -71,35 +73,74 @@ const AuthVue3 = createApp(
 						window.location.href = response.data.redirect_url;
 					}, 500);
 
+					// We use toast from Bootstrap 5
+					let toastBox = document.getElementsByClassName("ph-notice-toast")[0];
+
+					let toast = new bootstrap.Toast(toastBox);
+					toast.hide();
+
 					document.getElementsByClassName("btn-submit-loading")[0].insertAdjacentHTML("beforebegin", "<a class=\"btn btn-success btn-logged rounded-pill p-2 w-100\">Success <i class=\"far fa-check-circle fa-fw mr-1\"></i></div></a>");
 					document.getElementsByClassName("btn-submit-loading")[0].remove();
 
-					console.log(response.data);
+					// console.log(response.data);
 				}
 				else if (response.data.status == 'failed')
 				{
+					if (response.data.message instanceof Object == true || 
+						response.data.message instanceof Array == true)
+					{
+						this.isArrayMessageAfterSubmit = 1;
+					}
+					else
+					{
+						this.isArrayMessageAfterSubmit = 0;
+					}
+
+					this.responseMessageAfterSubmit = response.data.message;
+
+					// We use toast from Bootstrap 5
+					let toastBox = document.getElementsByClassName("ph-notice-toast")[0];
+
+					let toast = new bootstrap.Toast(toastBox);
+					toast.show();
+
 					document.getElementsByClassName("btn-submit-loading")[0].insertAdjacentHTML("beforebegin", "<input type=\"submit\" class=\"btn btn-primary btn-submit-login rounded-pill p-2 w-100\" value=\"Login\">");
 					document.getElementsByClassName("btn-submit-loading")[0].remove();
 
-					console.log(response.data);
+					// console.log(response.data.message instanceof Object);
 				}
 			})
 			.catch(error =>
 			{
+				if (error.response.data.message instanceof Object == true || 
+					error.response.data.message instanceof Array == true)
+				{
+					this.isArrayMessageAfterSubmit = 1;
+				}
+				else
+				{
+					this.isArrayMessageAfterSubmit = 0;
+				}
+
+				if (error.response !== undefined)
+				{
+					this.responseMessageAfterSubmit = error.response.data.message;
+				}
+				else
+				{
+					this.responseMessageAfterSubmit = error.message;
+				}
+
+				// We use toast from Bootstrap 5
+				let toastBox = document.getElementsByClassName("ph-notice-toast")[0];
+
+				let toast = new bootstrap.Toast(toastBox);
+				toast.show();
+
 				document.getElementsByClassName("btn-submit-loading")[0].insertAdjacentHTML("beforebegin", "<input type=\"submit\" class=\"btn btn-primary btn-submit-login rounded-pill p-2 w-100\" value=\"Login\">");
 				document.getElementsByClassName("btn-submit-loading")[0].remove();
-
-				console.log(error);
 			});
-		},
-		testingClick: function(value)
-		{
-			console.log(value);
 		}
-	},
-	created()
-	{
-		this.responseMessage;
 	}
 }).mount('#ph-app-auth');
 

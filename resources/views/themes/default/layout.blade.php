@@ -13,16 +13,11 @@
 			<!-- Font Lato CSS -->
 			<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,300;0,400;0,600;0,700;1,400&display=swap">
 
-			<!-- Font Awesome Icons -->
-			<script src="https://kit.fontawesome.com/868ca45003.js" crossorigin="anonymous"></script>
-
 			<!-- Custom CSS -->
 			<link href="{{ asset('assets/css/aruna-v3.css') }}" rel="stylesheet">
 			<link href="{{ asset('assets/css/phoenix-cms.css') }}" rel="stylesheet">		
 
-			<title>
-				{{ env("APP_NAME", "LaraPhoex") }} @yield('title')
-			</title>
+			<title>{{ env("APP_NAME", "LaraPhoex") }} | @yield('title')</title>
 		</head>
 		
 		<body>

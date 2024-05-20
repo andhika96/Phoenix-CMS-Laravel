@@ -1,5 +1,7 @@
 @extends('themes.default.layout')
 
+@section('title', 'Login')
+
 @section('content')
 	<style>
 
@@ -93,12 +95,40 @@
 					<div class="mb-5 text-center">
 						<h6 class="h3">Login</h6>
 						<p class="text-muted mb-0">Sign in to your account to continue.</p>
+
+						<div class="ph-notice">
+							<div aria-live="polite" aria-atomic="true" class="position-relative">
+								<div class="toast-container position-fixed top-0 end-0 p-3">
+									<div class="toast ph-notice-toast text-bg-danger" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="false">
+										<div class="toast-header text-bg-danger border-0" data-bs-theme="dark">
+											<strong class="me-auto">Notice</strong>
+											<small>just now</small>
+											<button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close" style="margin-right: calc(-.1 * var(--bs-toast-padding-x));"></button>
+										</div>
+									
+										<div class="toast-body text-start">
+											<div v-if="isArrayMessageAfterSubmit == 1">
+												<ul class="ps-3 m-0">
+													<li v-for="(item, index) in responseMessageAfterSubmit">
+														@{{ item[0] }}
+													</li>
+												</ul>
+											</div>
+
+											<div v-else>
+												@{{ responseMessageAfterSubmit }}
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
 
 					<div class="d-block" id="ph-form-login-submit">
 						<form action="{{ route('auth.login.authenticate') }}" method="post" @submit="login" ref="formHTML">
 							<div class="input-group ph-input-group mb-3">
-								<span class="input-group-text"><i class="fad fa-user"></i></span>
+								<span class="input-group-text"><i class="fa fa-user"></i></span>
 								
 								<div class="form-floating">
 									<input type="text" name="email" class="form-control form-control-sm font-size-inherit" id="floatingInput" placeholder="name@example.com">
