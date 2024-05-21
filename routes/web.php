@@ -27,7 +27,7 @@ Route::controller(App\Http\Controllers\Web\Auth\AuthController::class)->group(fu
 	Route::get('auth/login', 'login')->name('auth.login');
 	Route::post('auth/login', 'authenticate')->name('auth.login.authenticate');
 	Route::get('auth/login', 'logout')->name('auth.login');
-}
+});
 
 // Route::get('auth/login', [App\Http\Controllers\Web\Auth\AuthController::class, 'login'])->name('auth.login');
 // Route::post('auth/login', [App\Http\Controllers\Web\Auth\AuthController::class, 'authenticate'])->name('auth.login.authenticate');
@@ -37,7 +37,7 @@ Route::controller(App\Http\Controllers\Web\Auth\AuthController::class)->group(fu
 
 // ------------------------------------------------------------------------
 
-Route::get('/test', [App\Http\Controllers\Web\Test\TestController::class, 'test']);
+Route::get('/dashboard/test', [App\Http\Controllers\Web\Dashboard\DashboardController::class, 'test']);
 
 Route::name('app.')
     ->prefix('app')
