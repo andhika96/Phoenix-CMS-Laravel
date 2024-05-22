@@ -48,4 +48,18 @@ class Account extends Authenticatable
 
         return $user->hasRole(['Administrator']);
     }
+
+    public function checkRole(): bool
+    {
+        $user = $this->with('roles')->where('email', auth()->user()->email)->first();
+
+        return $user->hasRole(['Administrator']);
+    }
+
+    public function checkPermission(): bool
+    {
+        $user = $this->with('roles')->where('email', auth()->user()->email)->first();
+
+        return $user->hasRole(['Administrator']);
+    }
 }

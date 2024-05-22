@@ -134,7 +134,7 @@
 						</div>
 
 						<ul class="list-group list-group-flush">
-							<a href="{{ url('/') }}" class="list-group-item list-group-item-action" target="_blank">
+							<a href="{{ url('/awesome_admin') }}" class="list-group-item list-group-item-action" target="_blank">
 								<i class="fad fa-user-secret fa-fw me-2"></i>
 								Admin Panel
 							</a>
