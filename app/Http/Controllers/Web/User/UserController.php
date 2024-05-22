@@ -3,10 +3,18 @@
 namespace App\Http\Controllers\Web\User;
 
 use App\Http\Controllers\Controller;
+use App\Services\UserService;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
+    public function __construct(
+        public UserService $userService
+    )
+    {
+        
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -20,7 +28,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**
@@ -42,9 +50,15 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(string $idOrSlug)
     {
-        //
+        $data = $this->userService->findById($idOrSlug);
+
+        if (!$data) {
+            return redirect()->back()->with("error", "not found");
+        }
+
+        return view('user.form', ['data' => $data]);
     }
 
     /**

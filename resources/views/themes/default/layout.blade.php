@@ -19,6 +19,8 @@
 			<link href="{{ asset('assets/css/aruna-v3.css') }}" rel="stylesheet">
 			<link href="{{ asset('assets/css/phoenix-cms.css') }}" rel="stylesheet">		
 
+			@stack('css')
+
 			<title>{{ env("APP_NAME", "LaraPhoex") }} | @yield('title')</title>
 		</head>
 		

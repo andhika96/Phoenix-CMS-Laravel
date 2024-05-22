@@ -49,7 +49,8 @@ class UserController extends BaseApiController
 
             $formattedResponse = $this->paginateResponse($results, UserListResource::class);
 
-            return $this->respondOK($formattedResponse, 'Data found');
+            return $this->setStatusMsg($formattedResponse['total'] ? 'success' : 'failed')
+                ->respondOK($formattedResponse, $formattedResponse['total'] ? 'Data found' : 'No data found');
         } catch (\Throwable $e) {
             return $this->respondInternalError(null, $e->getMessage());
         }
@@ -88,9 +89,24 @@ class UserController extends BaseApiController
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(string $idOrSlug)
     {
-        //
+        try {
+            $data = $this->userService->findById($idOrSlug);
+            throw_if(empty($data), new NotFoundHttpException(404));
+
+            $data = new UserProfileResource($data);
+
+            $response = $this->setStatusMsg("success")->respondOK(array(
+                'data' => $data
+            ));
+        } catch (NotFoundHttpException $th) {
+            $response = $this->setStatusMsg("failed")->respondForbidden();
+        } catch (\Throwable $th) {
+            $response = $this->setStatusMsg("failed")->respondInternalError(null, $th->getMessage());
+        } finally {
+            return $response;
+        }
     }
 
     /**

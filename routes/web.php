@@ -43,8 +43,8 @@ Route::get('/awesome_admin', [App\Http\Controllers\Web\Awesome_Admin\Awesome_Adm
 
 Route::get('/dashboard/test', [App\Http\Controllers\Web\Dashboard\DashboardController::class, 'test']);
 
-Route::name('app.')
-    ->prefix('app')
+Route::name('admin.')
+    ->prefix('awesome_admin')
 	->namespace('App\Http\Controllers\Web')
 	->group(function () {
 		Route::name('user.')
@@ -52,5 +52,6 @@ Route::name('app.')
 			->controller(\User\UserController::class)
 			->group(function () {
 				Route::get('/', 'index')->name('index');
+				Route::get('/{idOrSlug}', 'edit')->name('edit');
 			});
         });

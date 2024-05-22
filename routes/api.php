@@ -16,6 +16,7 @@ Route::prefix('v1')
 			->controller(UserController::class)
 			->group(function () {
 				Route::get('/', 'index')->name('index');
+				Route::get('/{idOrSlug}', 'show')->name('show');
 				Route::post('/store', 'store')->name('store');
 				Route::match(['post', 'put'], '/update', 'update')->name('update');
 				Route::delete('/destroy', 'destroy')->name('destroy');

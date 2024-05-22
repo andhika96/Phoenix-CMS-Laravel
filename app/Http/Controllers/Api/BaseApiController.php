@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Response;
 class BaseApiController extends Controller
 {
     protected $statusCode = 200;
+    protected $statusMsg = "success";
     protected $recordLimit = 25;
 
     public function __construct()
@@ -30,7 +31,8 @@ class BaseApiController extends Controller
         $responseArray = [
             'success' => $success,
             'message' => $message,
-            'status' => $this->statusCode,
+            'status' => $this->statusMsg,
+            'code' => $this->statusCode,
         ];
 
         if (!empty($extras)) {
@@ -43,6 +45,12 @@ class BaseApiController extends Controller
     public function setStatusCode($statusCode): BaseApiController
     {
         $this->statusCode = $statusCode;
+        return $this;
+    }
+
+    public function setStatusMsg($message): BaseApiController
+    {
+        $this->statusMsg = $message;
         return $this;
     }
 
