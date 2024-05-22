@@ -18,7 +18,7 @@
 
 			<!-- Custom CSS -->
 			<link href="{{ asset('assets/css/aruna-v3.css') }}" rel="stylesheet">
-			<link href="{{ asset('assets/css/aruna-admin-v6.css?v=8374283') }}" rel="stylesheet">
+			<link href="{{ asset('assets/css/aruna-admin-v6.css?v=time()') }}" rel="stylesheet">
 			<link href="{{ asset('assets/css/phoenix-cms.css') }}" rel="stylesheet">		
 
 			<title>{{ env("APP_NAME", "LaraPhoex") }} | @yield('title')</title>
@@ -134,7 +134,7 @@
 						</div>
 
 						<ul class="list-group list-group-flush">
-							<a href="{{ url('/awesome_admin') }}" class="list-group-item list-group-item-action" target="_blank">
+							<a href="{{ url('/awesome_admin') }}" class="list-group-item list-group-item-action">
 								<i class="fad fa-user-secret fa-fw me-2"></i>
 								Admin Panel
 							</a>
@@ -236,7 +236,7 @@
 							</div>
 
 							<ul class="list-group list-group-flush">
-								<a href="{{ url('/') }}" class="list-group-item list-group-item-action" target="_blank">
+								<a href="{{ url('/') }}" class="list-group-item list-group-item-action">
 									<i class="fad fa-user-secret fa-fw me-2"></i>
 									Admin Panel
 								</a>

@@ -1,12 +1,110 @@
+[data-bs-theme=light] 
+{
+	--list-group-item-hover-color: #000;
+	--list-group-item-hover-bg: #cfe3cf;
+	--dropdown-item-hover-color: #000;
+	--dropdown-item-hover-bg: #cfe3cf;
+
+	a .lead
+	{
+		color: var(--bs-body-color);
+	}
+
+	body
+	{
+		background-color: #F4F5F7 !important;
+	}
+
+	.arv6-sidebar
+	{
+		color: var(--bs-body-color);
+		background-color: var(--bs-body-bg);
+	}
+
+	.arv6-box
+	{
+		color: var(--bs-body-color);
+		border: 1px var(--bs-body-bg) solid;
+		border-radius: var(--bs-border-radius);
+		background-color: var(--bs-body-bg);
+		box-shadow: var(--bs-box-shadow-sm);
+	}
+}
+
+[data-bs-theme=dark] 
+{
+	--list-group-item-hover-color: #dee2e6;
+	--list-group-item-hover-bg: #556555;
+	--dropdown-item-hover-color: #dee2e6;
+	--dropdown-item-hover-bg: #556555;
+
+	body
+	{
+		color: var(--bs-body-color);
+		background-color: var(--bs-body-bg);
+	}
+
+	a svg,
+	a i 
+	{
+		filter: brightness(130%);
+	}
+
+	a .lead
+	{
+		color: var(--bs-body-color);
+	}
+
+	.svg-inline--fa .fa-secondary 
+	{
+		opacity: 1;
+		opacity: var(--fa-secondary-opacity,1);
+	}
+
+	.arv6-sidebar a:hover svg,
+	.offcanvas a:hover svg,
+	.arv6-sidebar a:hover i,
+	.offcanvas a:hover i
+	{
+		color: var(--bs-body-color);
+		filter: brightness(130%);
+	}
+
+	.arv6-sidebar
+	{
+		color: var(--bs-body-color);
+		border-right: var(--bs-secondary-bg);
+		background-color: var(--bs-secondary-bg);
+	}
+
+	.arv6-sidebar .arv6-menu .list-group-item
+	{
+		background-color: var(--bs-secondary-bg);
+	}
+
+	.arv6-menu .arv6-title
+	{
+		color: var(--bs-dark-text-emphasis);
+	}
+
+	.arv6-box
+	{
+		color: var(--bs-body-color);
+		border: 1px var(--bs-dark-border-subtle) solid;
+		border-radius: var(--bs-border-radius);
+		background-color: var(--bs-secondary-bg);
+	}
+}
+
 a
 {
-	color: #ff3232;
+	color: #447B1C;
 }
 
 a:hover,
 a:focus
 {
-	color: #cc0000;
+	color: #366216;
 }
 
 .arv6-sidebar a svg,
@@ -14,7 +112,7 @@ a:focus
 .arv6-sidebar a i,
 .offcanvas a i
 {
-	color: #ff3232;
+	color: #447B1C;
 }
 
 .arv6-container
@@ -87,9 +185,9 @@ a:focus
 
 .arv6-menu .list-group-flush a.list-group-item:hover
 {
-	color: #000;
+	color: var(--list-group-item-hover-color);
 	border-radius: .25rem;
-	background-color: #dcdee3;
+	background-color: var(--list-group-item-hover-bg);
 	transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out;
 }
 
@@ -126,16 +224,16 @@ a:focus
 .arv6-header-side .dropdown-item:hover, 
 .arv6-header-side .dropdown-item:focus 
 {
-	color: #fff;
-	background-color: #ff0000;
+	color: var(--dropdown-item-hover-color);
+	background-color: var(--dropdown-item-hover-bg);
 }
 
 .arv6-header-side .dropdown-item.active, 
 .arv6-header-side .dropdown-item:active 
 {
-	color: #fff;
+	color: var(--dropdown-item-hover-color);
 	text-decoration: none;
-	background-color: #ff0000;
+	background-color: var(--dropdown-item-hover-bg);
 }
 
 .arv6-menu .arv6-title 
@@ -152,63 +250,6 @@ a:focus
 {
 	margin-top: .5625rem;
 	background-color: rgba(0, 0, 0, 0.8);
-}
-
-[data-bs-theme=light] 
-{
-	body
-	{
-		background-color: #F4F5F7 !important;
-	}
-	
-	.arv6-sidebar
-	{
-		color: var(--bs-body-color);
-		background-color: var(--bs-body-bg);
-	}
-
-	.arv6-box
-	{
-		color: var(--bs-body-color);
-		border: 1px var(--bs-body-bg) solid;
-		border-radius: var(--bs-border-radius);
-		background-color: var(--bs-body-bg);
-		box-shadow: var(--bs-box-shadow-sm);
-	}
-}
-
-[data-bs-theme=dark] 
-{
-	body
-	{
-		color: var(--bs-body-color);
-		background-color: var(--bs-body-bg);
-	}
-
-	.arv6-sidebar
-	{
-		color: var(--bs-body-color);
-		border-right: var(--bs-secondary-bg);
-		background-color: var(--bs-secondary-bg);
-	}
-
-	.arv6-sidebar .arv6-menu .list-group-item
-	{
-		background-color: var(--bs-secondary-bg);
-	}
-
-	.arv6-menu .arv6-title
-	{
-		color: var(--bs-dark-text-emphasis);
-	}
-
-	.arv6-box
-	{
-		color: var(--bs-body-color);
-		border: 1px var(--bs-dark-border-subtle) solid;
-		border-radius: var(--bs-border-radius);
-		background-color: var(--bs-secondary-bg);
-	}
 }
 
 @media (max-width: 767.98px)

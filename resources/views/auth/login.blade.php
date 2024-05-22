@@ -161,10 +161,13 @@
 				</div>
 			</div>
 
-			<div class="col-lg-7 p-0 ph-border-bottom-left-leaf d-none d-lg-flex justify-content-center align-items-center" style="background-color: #ffeaea;">
-				<div class="ph-bg-image ph-border-bottom-left-leaf d-none" style="background-image: url({{ asset('assets/images/trees-on-forest-at-daytime-1083515.jpg') }});"></div>
+			<div class="col-lg-7 p-0 ph-border-bottom-left-leaf d-none d-lg-flex justify-content-center align-items-center" style="background-color: rgba(170, 222, 135, 0.71);">
+				<div class="ph-bg-image ph-border-bottom-left-leaf d-flex align-items-center justify-content-center" style="background-image: url({{ asset('assets/svgs/subtle-prism.svg') }});">
+					<img src="{{ asset('assets/svgs/undraw_secure_login_pdn4.svg') }}" class="100-h" style="width: 350px;">
+
+				</div>
 				
-				<img src="{{ asset('assets/svgs/undraw_welcome_re_h3d9.svg') }}" class="100-h" style="width: 300px;">
+				<img src="{{ asset('assets/svgs/undraw_secure_login_pdn4.svg') }}" class="100-h d-none" style="width: 300px;">
 				<img src="{{ asset('assets/images/pexels-visually-us-1643402.jpg') }}" class="img-fluid d-none">
 			</div>
 		</div>

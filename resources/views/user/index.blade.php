@@ -199,7 +199,7 @@
                                 this.responseStatus = response.data.status;
                                 this.responseMessage = response.data.message;
 
-                                console.log(this.responseData);
+                                console.log('Testing');
                             })
                             .catch(function(error) {
                                 this.responseStatus = response.data.status;
@@ -214,7 +214,7 @@
                                  this.loadingnextpage = false;
                             });
                     }
-                }, 800),
+                }, 500),
 
                 // To use this function, you can use our custom directive to activate
                 // Our custom directive is v-debounce:1s="YOUR_FUNCTION"
