@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
+
     public function index(): View
     {
         $data = [];
@@ -26,7 +27,7 @@ class DashboardController extends Controller
 
         // $accounts = Accounts::get();
 
-        return view('Dashboard.dashboard', ['accounts' => $blog_articles]);
+        return view('Dashboard.dashboard');
     }
 
     public function testCreateRole()
@@ -45,9 +46,9 @@ class DashboardController extends Controller
 
     public function test()
     {
-        $accounts = Account::with('roles')->where('email', 'andhika.adhitia96@gmail.com')->get();
+        $accounts = Account::with('roles')->where('email', 'admin@aruna-dev.com')->get();
 
-        $user = Account::where('email', 'andhika.adhitia96@gmail.com')->first();
+        $user = Account::with('roles')->where('email', 'admin@aruna-dev.com')->first();
         // $user->assignRole('Administrator');
         // $user->syncRoles(['Administrator']);
         // $user->save();
@@ -66,6 +67,8 @@ class DashboardController extends Controller
         {
             return response()->json(['status' => 'failed', 'message' => 'You are not Admin!', 'data' => '']);
         }
+
+        // return response()->json(['status' => 'success', 'message' => 'Success', 'data' => $accounts]);
     }
 }
 

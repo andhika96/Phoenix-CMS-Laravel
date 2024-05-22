@@ -46,7 +46,7 @@ class makeActionService extends GeneratorCommand
      */
     protected function getDefaultNamespace($rootNamespace)
     {
-        return $rootNamespace.'\Http\Services';
+        return $rootNamespace.'\Services';
     }
 
     /**

@@ -44,6 +44,8 @@ class Account extends Authenticatable
 
     public function isAdmin(): bool
     {
-        return $this->hasRole(['Administrator']);
+        $user = $this->with('roles')->where('email', auth()->user()->email)->first();
+
+        return $user->hasRole(['Administrator']);
     }
 }

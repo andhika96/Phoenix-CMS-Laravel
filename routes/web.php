@@ -26,7 +26,7 @@ Route::controller(App\Http\Controllers\Web\Auth\AuthController::class)->group(fu
 {
 	Route::get('auth/login', 'login')->name('auth.login');
 	Route::post('auth/login', 'authenticate')->name('auth.login.authenticate');
-	Route::get('auth/login', 'logout')->name('auth.login');
+	Route::get('auth/logout', 'logout')->name('auth.logout');
 });
 
 // Route::get('auth/login', [App\Http\Controllers\Web\Auth\AuthController::class, 'login'])->name('auth.login');
@@ -34,6 +34,10 @@ Route::controller(App\Http\Controllers\Web\Auth\AuthController::class)->group(fu
 // Route::get('auth/logout', [App\Http\Controllers\Web\Auth\AuthController::class, 'logout'])->name('auth.logout');
 
 // Route::get('auth/asd', [App\Http\Controllers\Web\Auth\AuthController::class, 'asd'])->name('auth.login');
+
+// ------------------------------------------------------------------------
+
+Route::get('/awesome_admin', [App\Http\Controllers\Web\Awesome_Admin\Awesome_AdminController::class, 'index'])->middleware('auth');
 
 // ------------------------------------------------------------------------
 
