@@ -147,6 +147,10 @@
 
                 <input type="text" :name="index" class="form-control" v-model="item">
             </div>
+
+            <div v-for="(item, index) in responseDetailData.data">
+
+            </div>
         </div>
     </div>
 @endsection
