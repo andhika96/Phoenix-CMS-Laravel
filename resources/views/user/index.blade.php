@@ -1,7 +1,7 @@
 @extends('themes.default.admin.admin_layout')
 
 @section('content')
-    <div class="arv6-box p-4" id="dataIndex">
+    <div class="arv6-box p-4" id="ph-list-data">
         <div id="ar-app-listdata" class="ar-fetch-listdata" data-url="{{ route('api.v1.user.index') }}">
             <div class="mb-3">
                 <div class="d-md-flex justify-content-between align-items-center border-bottom pb-3">
@@ -139,6 +139,14 @@
                 </div>
             </div>
 
+        </div>
+
+        <div class="ar-fetch-list-detaildata" data-url="{{ route('api.v1.user.show', ['idOrSlug' => 1]) }}">
+            <div v-for="(item, index) in responseDetailData.data">
+                @{{ index }}
+
+                <input type="text" :name="index" class="form-control" v-model="item">
+            </div>
         </div>
     </div>
 @endsection

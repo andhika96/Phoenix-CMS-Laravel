@@ -130,7 +130,7 @@ const AuthVue3 = createApp(
 		}
 	}).mount('#ph-app-auth');
 
-const AuthVueDemo = createApp(
+const AuthVue3Demo = createApp(
 	{
 		data() {
 			return {
@@ -189,10 +189,11 @@ const AuthVueDemo = createApp(
 
 
 // START: Fetch Data
-const ListData = createApp({
+const ListDataVue3 = createApp({
 	data() {
 		return {
 			responseData: [],
+			responseDetailData: [],
 			responseMessage: '',
 			responseStatus: '',
 			getCurrentPage: '',
@@ -244,7 +245,6 @@ const ListData = createApp({
 					});
 			}
 		},
-
 		searchData: _.debounce(function () {
 			const getData = this.getData.trim();
 
@@ -276,7 +276,6 @@ const ListData = createApp({
 					});
 			}
 		}, 500),
-
 		// To use this function, you can use our custom directive to activate
 		// Our custom directive is v-debounce:1s="YOUR_FUNCTION"
 		searchDataWithVueDebounce: function () {
@@ -313,7 +312,6 @@ const ListData = createApp({
 					});
 			}
 		},
-
 		clickPaginate: async function (page) {
 			if (document.querySelector(".ar-fetch-listdata") !== null &&
 				document.querySelector(".ar-fetch-listdata").getAttribute("data-url") !== null) {
@@ -352,7 +350,6 @@ const ListData = createApp({
 					});
 			}
 		},
-
 		loadComplete: function () {
 			this.loading = false;
 			this.loadingnextpage = false;
@@ -377,7 +374,6 @@ const ListData = createApp({
 				}
 			}
 		},
-
 		createData: async function () {
 			this.loading = true; // Set loading state to true
 
@@ -400,7 +396,6 @@ const ListData = createApp({
 
 			this.listData();
 		},
-
 		createDataRevs: async function (event) {
 			event.preventDefault();
 
@@ -452,6 +447,35 @@ const ListData = createApp({
 
 					console.log(error.response.data);
 				});
+		},
+		getDetailData: function()
+		{
+			if (document.querySelector(".ar-fetch-list-detaildata") !== null &&
+				document.querySelector(".ar-fetch-list-detaildata").getAttribute("data-url") !== null) 
+			{
+				const url = document.querySelector(".ar-fetch-list-detaildata").getAttribute("data-url");
+
+				axios.get(url)
+					.then(response => 
+					{
+						this.responseDetailData = response.data;
+						this.responseStatus = response.data.status;
+						this.responseMessage = response.data.message;
+
+						console.log(this.responseDetailData);
+					})
+					.catch(function (error) 
+					{
+						this.responseStatus = response.data.status;
+						this.responseMessage = response.data.message;
+
+						console.log(error.response);
+					})
+					.finally(() => 
+					{
+						// Empty Code
+					});
+			}
 		}
 	},
 	directives: {
@@ -461,6 +485,8 @@ const ListData = createApp({
 	},
 	mounted() {
 		this.listData();
+
+		this.getDetailData();
 	}
-}).mount('#dataIndex');
+}).mount('#ph-list-data');
 // END: Fetch Data

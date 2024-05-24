@@ -37,7 +37,6 @@ class Awesome_AdminController extends Controller
             return view('awesome_admin.awesome_admin');
         }
         
-        // dd($this->Account->isAdmin());
         abort(403);
     }
 
@@ -87,5 +86,10 @@ class Awesome_AdminController extends Controller
     public function destroy(Awesome_Admin $awesome_Admin)
     {
         //
+    }
+
+    public function test()
+    {
+        
     }
 }
