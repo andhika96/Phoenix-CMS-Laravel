@@ -143,12 +143,22 @@
 
         <div class="ar-fetch-list-detaildata" data-url="{{ route('api.v1.user.show', ['idOrSlug' => 1]) }}">
             <div v-for="(item, index) in responseDetailData.data">
-                @{{ index }}
+                <div v-if="index == 'fullname'">
+                    @{{ index }} ---  TESTING
 
-                <input type="text" :name="index" class="form-control" v-model="item">
+                    <input type="text" :name="index" class="form-control" v-model="item">
+                </div>
+
+                <div v-else>
+                     @{{ index }}
+
+                    <input type="text" :name="index" class="form-control" v-model="item">
+                </div>
+
+                
             </div>
 
-            <div v-for="(item, index) in responseDetailData.data">
+            <div v-for="item in responseDetailData.data">
 
             </div>
         </div>
