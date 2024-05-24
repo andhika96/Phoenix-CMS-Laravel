@@ -45,13 +45,14 @@ Route::get('/dashboard/test', [App\Http\Controllers\Web\Dashboard\DashboardContr
 
 Route::name('admin.')
     ->prefix('awesome_admin')
-	->namespace('App\Http\Controllers\Web')
+	->namespace('App\Http\Controllers\Web\Awesome_Admin')
 	->group(function () {
 		Route::name('user.')
             ->prefix('user')
-			->controller(\User\UserController::class)
+			->controller(\Awesome_Admin_UserController::class)
 			->group(function () {
 				Route::get('/', 'index')->name('index');
+				Route::get('/profile/{idOrSlug}', 'show')->name('show');
 				Route::get('/{idOrSlug}', 'edit')->name('edit');
 			});
         });

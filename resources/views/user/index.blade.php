@@ -1,8 +1,8 @@
 @extends('themes.default.admin.admin_layout')
-
+@section("title") Account @endsection   
 @section('content')
     <div class="arv6-box p-4" id="ph-list-data">
-        <div id="ar-app-listdata" class="ar-fetch-listdata" data-url="{{ route('api.v1.user.index') }}">
+        <div id="ar-app-listdata" class="ar-fetch-listdata" data-url="{{ url('awesome_admin/user/') }}">
             <div class="mb-3">
                 <div class="d-md-flex justify-content-between align-items-center border-bottom pb-3">
                     <div class="h5"><i class="fad fa-users fa-fw me-2"></i> Manage User Account</div>

@@ -1,5 +1,5 @@
 @extends('themes.default.admin.admin_layout')
-
+@section("title") Edit Account @endsection   
 @section('content')
     <div class="arv6-box p-4" id="ar-app-form">
         <form action="#" method="post" reset="true" @submit="submitData" ref="formHTML">
@@ -20,23 +20,32 @@
                     </div>
                 </div>
             </div>
-            <div class="row mb-4">
-                <div class="col">
-                    <label class="form-label">Variant Model Name</label>
+            <div class="row">
+                <div class="col-12 mb-4">
+                    <label class="form-label">Fullname</label>
                     <div class="input-group">
-                        <input id="name" name="name" class="form-control" type="text" value="{{ $data->name }}"
-                            placeholder="Variant">
+                        <input id="fullname" name="fullname" class="form-control" type="text" value="{{ $data->fullname }}"
+                            placeholder="Fullname">
                     </div>
-                    <small id="nameError" class="text-danger"></small>
+                    <small id="fullnameError" class="text-danger"></small>
                 </div>
 
-                <div class="col">
-                    <label class="form-label">Model</label>
-                    <div class="form-group mb-3" id="model_idFormGroup">
-                        <select class="form-control" name="model_id" id="model_choices" placeholder="Model">
-                        </select>
+                <div class="col-md-6 mb-4">
+                    <label class="form-label">Username</label>
+                    <div class="input-group">
+                        <input id="username" name="username" class="form-control" type="text" value="{{ $data->username }}"
+                            placeholder="Username">
                     </div>
-                    <small id="model_idrror" class="text-danger"></small>
+                    <small id="usernameError" class="text-danger"></small>
+                </div>
+               
+                <div class="col-md-6 mb-4">
+                    <label class="form-label">Email</label>
+                    <div class="input-group">
+                        <input id="email" name="email" class="form-control" type="email" value="{{ $data->email }}"
+                            placeholder="Email">
+                    </div>
+                    <small id="emailError" class="text-danger"></small>
                 </div>
             </div>
         </form>
