@@ -59,16 +59,18 @@ class DashboardController extends Controller
         // $role = Role::findByName('Administrator');
         // $role->givePermissionTo('edit articles');
 
-        if ($user->isAdmin())
-        {
-            return response()->json(['status' => 'success', 'message' => 'Success', 'data' => $accounts]);
-        }
-        else
-        {
-            return response()->json(['status' => 'failed', 'message' => 'You are not Admin!', 'data' => '']);
-        }
+        // if ($user->isAdmin())
+        // {
+        //     return response()->json(['status' => 'success', 'message' => 'Success', 'data' => $accounts]);
+        // }
+        // else
+        // {
+        //     return response()->json(['status' => 'failed', 'message' => 'You are not Admin!', 'data' => '']);
+        // }
 
-        // return response()->json(['status' => 'success', 'message' => 'Success', 'data' => $accounts]);
+        $role = Role::delete(['name' => 'edit articles']);
+
+        return response()->json(['status' => 'success', 'message' => 'Success', 'data' => $permission]);
     }
 }
 

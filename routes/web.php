@@ -37,22 +37,48 @@ Route::controller(App\Http\Controllers\Web\Auth\AuthController::class)->group(fu
 
 // ------------------------------------------------------------------------
 
-Route::get('/awesome_admin', [App\Http\Controllers\Web\Awesome_Admin\Awesome_AdminController::class, 'index'])->middleware('auth');
+// Route::get('/awesome_admin', [App\Http\Controllers\Web\Awesome_Admin\Awesome_AdminController::class, 'index'])->middleware('auth');
 
 // ------------------------------------------------------------------------
 
 Route::get('/dashboard/test', [App\Http\Controllers\Web\Dashboard\DashboardController::class, 'test']);
 
 Route::name('admin.')
-    ->prefix('awesome_admin')
+	->prefix('awesome_admin')
 	->namespace('App\Http\Controllers\Web\Awesome_Admin')
-	->group(function () {
+	->group(function() 
+	{
+		Route::controller(\Awesome_AdminController::class)->group(function()
+		{
+			Route::get('/', 'index')->middleware('auth');
+		});
+
+		Route::controller(\Awesome_AdminRoleController::class)->group(function()
+		{
+			Route::get('/config', 'index')->middleware('auth');
+		});
+
+		Route::controller(\Awesome_AdminRoleController::class)->group(function()
+		{
+			Route::get('/role', 'index')->name('awesome_admin.role')->middleware('auth');
+			Route::post('/role', 'store')->name('awesome_admin.role.store')->middleware('auth');
+			Route::get('/role/listdata', 'listdata')->name('awesome_admin.role.list')->middleware('auth');
+		});
+
+		Route::controller(\Awesome_AdminPermissionController::class)->group(function()
+		{
+			Route::get('/permission', 'index')->middleware('auth');
+			Route::post('/permission', 'store')->name('awesome_admin.permission.store')->middleware('auth');
+			Route::get('/permission/listdata', 'listdata')->name('awesome_admin.permission.list')->middleware('auth');
+		});
+
 		Route::name('user.')
-            ->prefix('user')
+			->prefix('user')
 			->controller(\Awesome_Admin_UserController::class)
-			->group(function () {
+			->group(function() 
+			{
 				Route::get('/', 'index')->name('index');
 				Route::get('/profile/{idOrSlug}', 'show')->name('show');
 				Route::get('/{idOrSlug}', 'edit')->name('edit');
-			});
-        });
+		});
+	});

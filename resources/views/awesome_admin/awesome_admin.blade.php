@@ -52,7 +52,7 @@
 			</div>
 
 			<div class="col-6 col-md-3 col-xl-2">
-				<a href="{{ url('awesome_admin/config') }}" class="text-decoration-none">
+				<a href="{{ url('awesome_admin/user') }}" class="text-decoration-none">
 					<div class="d-block mb-2">
 						<i class="fad fa-users fa-3x"></i>
 					</div>
@@ -62,7 +62,7 @@
 			</div>
 
 			<div class="col-6 col-md-3 col-xl-2">
-				<a href="{{ url('awesome_admin/config') }}" class="text-decoration-none">
+				<a href="{{ url('awesome_admin/role') }}" class="text-decoration-none">
 					<div class="d-block mb-2">
 						<i class="fad fa-project-diagram fa-3x"></i>
 					</div>
@@ -72,7 +72,7 @@
 			</div>
 
 			<div class="col-6 col-md-3 col-xl-2">
-				<a href="{{ url('awesome_admin/config') }}" class="text-decoration-none">
+				<a href="{{ url('awesome_admin/permission') }}" class="text-decoration-none">
 					<div class="d-block mb-2">
 						<i class="fad fa-chart-network fa-3x"></i>
 					</div>
