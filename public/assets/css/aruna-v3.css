@@ -486,6 +486,106 @@ dl, ol, ul
 	color: #808080;
 }
 
+.w-1
+{
+	width: 0.25rem !important;
+}
+
+.w-2
+{
+	width: 0.5rem !important;
+}
+
+.w-3
+{
+	width: 1rem !important;
+}
+
+.w-4
+{
+	width: 1.5rem !important;
+}
+
+.w-5
+{
+	width: 3rem !important;
+}
+
+.wn-1
+{
+	width: -0.25rem !important;
+}
+
+.wn-2
+{
+	width: -0.5rem !important;
+}
+
+.wn-3
+{
+	width: -1rem !important;
+}
+
+.wn-4
+{
+	width: -1.5rem !important;
+}
+
+.wn-5
+{
+	width: -3rem !important;
+}
+
+.h-1
+{
+	height: 0.25rem !important;
+}
+
+.h-2
+{
+	height: 0.5rem !important;
+}
+
+.h-3
+{
+	height: 1rem !important;
+}
+
+.h-4
+{
+	height: 1.5rem !important;
+}
+
+.h-5
+{
+	height: 3rem !important;
+}
+
+.hn-1
+{
+	height: -0.25rem !important;
+}
+
+.hn-2
+{
+	height: -0.5rem !important;
+}
+
+.hn-3
+{
+	height: -1rem !important;
+}
+
+.hn-4
+{
+	height: -1.5rem !important;
+}
+
+.hn-5
+{
+	height: -3rem !important;
+}
+
 .m-n1 
 {
 	margin: -0.25rem !important;
@@ -1389,6 +1489,7 @@ dl, ol, ul
 	{
 		right: 45% !important;
 	}
+	
 
 	.m-sm-n1 
 	{

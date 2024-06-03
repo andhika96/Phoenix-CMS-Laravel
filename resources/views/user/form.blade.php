@@ -21,7 +21,13 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-12 mb-4">
+                
+            </div>
+        </form>
+
+    </div>
+@endsection
+<div class="col-12 mb-4">
                     <label class="form-label">Fullname</label>
                     <div class="input-group">
                         <input id="fullname" name="fullname" class="form-control" type="text" value="{{ $data->fullname }}"
@@ -47,8 +53,3 @@
                     </div>
                     <small id="emailError" class="text-danger"></small>
                 </div>
-            </div>
-        </form>
-
-    </div>
-@endsection

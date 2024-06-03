@@ -155,9 +155,9 @@ const AuthVue3Demo = createApp(
 		methods:
 		{
 			listData: function () {
-				if (document.querySelector(".ar-fetch-listdata") !== null &&
-					document.querySelector(".ar-fetch-listdata").getAttribute("data-url") !== null) {
-					const url = document.querySelector(".ar-fetch-listdata").getAttribute("data-url");
+				if (document.querySelector(".ph-fetch-listdata") !== null &&
+					document.querySelector(".ph-fetch-listdata").getAttribute("data-url") !== null) {
+					const url = document.querySelector(".ph-fetch-listdata").getAttribute("data-url");
 
 					axios.get(url)
 						.then(response => {
@@ -196,8 +196,8 @@ const AuthVue3Demo = createApp(
 		}
 	}).mount('#ph-app-demo');
 
-// START: Fetch Data
-const ListDataVue3 = createApp({
+// START: Basic Model Function
+const BasicFunctionalityVue3 = createApp({
 	data() {
 		return {
 			responseData: [],
@@ -212,10 +212,6 @@ const ListDataVue3 = createApp({
 			loadingnextpage: '',
 			pageCount: '',
 			pageRange: '',
-			newUser: {
-				fullname: '',
-				email: ''
-			},
 			showModal: false,
 		}
 	},
@@ -225,10 +221,10 @@ const ListDataVue3 = createApp({
 	methods: {
 		listData: function () {
 			if (
-				document.querySelector(".ar-fetch-listdata") !== null &&
-				document.querySelector(".ar-fetch-listdata").getAttribute("data-url") !== null
+				document.querySelector(".ph-fetch-listdata") !== null &&
+				document.querySelector(".ph-fetch-listdata").getAttribute("data-url") !== null
 			) {
-				const url = document.querySelector(".ar-fetch-listdata").getAttribute("data-url");
+				const url = document.querySelector(".ph-fetch-listdata").getAttribute("data-url");
 				axios.get(url)
 					.then(response => {
 						this.responseData = response.data.data;
@@ -257,12 +253,12 @@ const ListDataVue3 = createApp({
 			const getData = this.getData.trim();
 
 			if (
-				document.querySelector(".ar-fetch-listdata") !== null &&
-				document.querySelector(".ar-fetch-listdata").getAttribute("data-url") !== null
+				document.querySelector(".ph-fetch-listdata") !== null &&
+				document.querySelector(".ph-fetch-listdata").getAttribute("data-url") !== null
 			) {
 				this.loadingnextpage = true;
 
-				const url = document.querySelector(".ar-fetch-listdata").getAttribute("data-url");
+				const url = document.querySelector(".ph-fetch-listdata").getAttribute("data-url");
 
 				axios.get(url + '?fullname=' + getData)
 					.then(response => {
@@ -291,12 +287,12 @@ const ListDataVue3 = createApp({
 			const getData = this.getData.trim();
 			
 			if (
-				document.querySelector(".ar-fetch-listdata") !== null &&
-				document.querySelector(".ar-fetch-listdata").getAttribute("data-url") !== null
+				document.querySelector(".ph-fetch-listdata") !== null &&
+				document.querySelector(".ph-fetch-listdata").getAttribute("data-url") !== null
 			) {
 				this.loadingnextpage = true;
 
-				const url = document.querySelector(".ar-fetch-listdata").getAttribute("data-url");
+				const url = document.querySelector(".ph-fetch-listdata").getAttribute("data-url");
 
 				axios.get(`${url}?fullname=${getData}&email=${getData}`)
 					.then(response => {
@@ -321,14 +317,14 @@ const ListDataVue3 = createApp({
 			}
 		},
 		clickPaginate: async function (page) {
-			if (document.querySelector(".ar-fetch-listdata") !== null &&
-				document.querySelector(".ar-fetch-listdata").getAttribute("data-url") !== null) {
-				const url = document.querySelector(".ar-fetch-listdata").getAttribute("data-url");
+			if (document.querySelector(".ph-fetch-listdata") !== null &&
+				document.querySelector(".ph-fetch-listdata").getAttribute("data-url") !== null) {
+				const url = document.querySelector(".ph-fetch-listdata").getAttribute("data-url");
 
 				this.pageUrl = '?page=' + page;
 				if (this.getData !== null && this.getData !== "") {
 					const keyword = this.getData.trim();
-					this.pageUrl += `&fullname=${keyword}&email=${keyword}`;
+					this.pageUrl += '&fullname=' + keyword + '&email=' + keyword;
 				}
 
 				this.loadingnextpage = true;
@@ -362,49 +358,27 @@ const ListDataVue3 = createApp({
 			this.loading = false;
 			this.loadingnextpage = false;
 
-			if (document.querySelector(".ar-data-status") !== null) {
-				if (getComputedStyle(document.querySelector('.ar-data-status'), null).display == 'none') {
-					document.querySelector(".ar-data-status").style.display = 'block';
+			if (document.querySelector(".ph-data-status") !== null) {
+				if (getComputedStyle(document.querySelector('.ph-data-status'), null).display == 'none') {
+					document.querySelector(".ph-data-status").style.display = 'block';
 				}
 			}
 
 
-			if (document.querySelector(".ar-data-load") !== null) {
-				if (getComputedStyle(document.querySelector('.ar-data-load'), null).display == 'none') {
-					document.querySelector(".ar-data-load").style.display = 'block';
+			if (document.querySelector(".ph-data-load") !== null) {
+				if (getComputedStyle(document.querySelector('.ph-data-load'), null).display == 'none') {
+					document.querySelector(".ph-data-load").style.display = 'block';
 				}
 			}
 
-			if (document.querySelector(".ar-total-data-load") !== null) {
-				if (getComputedStyle(document.querySelector('.ar-total-data-load'), null).display ==
+			if (document.querySelector(".ph-total-data-load") !== null) {
+				if (getComputedStyle(document.querySelector('.ph-total-data-load'), null).display ==
 					'none') {
-					document.querySelector(".ar-total-data-load").style.display = 'block';
+					document.querySelector(".ph-total-data-load").style.display = 'block';
 				}
 			}
 		},
-		createData: async function () {
-			this.loading = true; // Set loading state to true
-
-			await axios.post('{{ route("api.v1.user.store") }}', this.newUser)
-				.then(response => {
-					this.responseMessage = 'User created successfully!';
-					new bootstrap.Modal(document.getElementById('createUserModal'))
-						.hide(); // Hide modal
-					this.newUser = {
-						fullname: '',
-						email: ''
-					}; // Reset form fields
-				})
-				.catch(error => {
-					console.log(error.response.data);
-				})
-				.finally(() => {
-					this.loading = false; // Reset loading state
-				});
-
-			this.listData();
-		},
-		createDataRevs: async function (event) {
+		submitData: async function (event) {
 			event.preventDefault();
 
 			// Get id form submit
@@ -414,11 +388,13 @@ const ListDataVue3 = createApp({
 			let formActionURL = getIdFormSubmit.getElementsByTagName("form")[0].getAttribute("action");
 			let formMethod = getIdFormSubmit.getElementsByTagName("form")[0].getAttribute("method");
 
+
 			// FormData objects are used to capture HTML form and submit it using fetch or another network method.
 			let formData = new FormData(this.$refs.formHTML);
 
 			// Get class button name to change the button to button loading state .
-			document.getElementsByClassName("btn-submit")[0].insertAdjacentHTML("beforebegin",
+			document.getElementsByClassName("btn-submit")[0].insertAdjacentHTML(
+				"beforebegin",
 				"<a class=\"btn btn-secondary btn-submit-loading p-2\">Submitting <div class=\"spinner-border spinner-border-sm text-light ml-1\" role=\"status\"><span class=\"sr-only\">Loading...</span></div></a>"
 			);
 			document.getElementsByClassName("btn-submit")[0].remove();
@@ -433,11 +409,12 @@ const ListDataVue3 = createApp({
 				}
 			})
 				.then(response => {
-					const modalToggleNewUser = bootstrap.Modal.getOrCreateInstance(
-						"#createUserModalRevs");
+					const formSubmitModal = bootstrap.Modal.getOrCreateInstance("#formSubmitModal");
 
-					modalToggleNewUser.hide();
-
+					if (formSubmitModal) {
+						awaiformSubmitModal.hide();
+					}
+					
 					document.getElementsByClassName("btn-submit-loading")[0].insertAdjacentHTML(
 						"beforebegin",
 						"<a class=\"btn btn-success btn-logged p-2\">Success <i class=\"far fa-check-circle fa-fw mr-1\"></i></div></a>"
@@ -449,7 +426,7 @@ const ListDataVue3 = createApp({
 				.catch(error => {
 					document.getElementsByClassName("btn-submit-loading")[0].insertAdjacentHTML(
 						"beforebegin",
-						"<input type=\"submit\" class=\"btn btn-primary btn-submit p-2\" value=\"Login\">"
+						'<button type="submit" class="btn btn-success btn-submit"><i class="fad fa-save me-2"></i>Save</button>'
 					);
 					document.getElementsByClassName("btn-submit-loading")[0].remove();
 
@@ -458,10 +435,10 @@ const ListDataVue3 = createApp({
 		},
 		getDetailData: function()
 		{
-			if (document.querySelector(".ar-fetch-list-detaildata") !== null &&
-				document.querySelector(".ar-fetch-list-detaildata").getAttribute("data-url") !== null) 
+			if (document.querySelector(".ph-fetch-list-detaildata") !== null &&
+				document.querySelector(".ph-fetch-list-detaildata").getAttribute("data-url") !== null) 
 			{
-				const url = document.querySelector(".ar-fetch-list-detaildata").getAttribute("data-url");
+				const url = document.querySelector(".ph-fetch-list-detaildata").getAttribute("data-url");
 
 				axios.get(url)
 					.then(response => 
@@ -496,8 +473,8 @@ const ListDataVue3 = createApp({
 
 		this.getDetailData();
 	}
-}).mount('#ph-list-data');
-// END: Fetch Data
+}).mount('#ph-app');
+// END: Basic Model Function
 
 const ListDataSimpleVue3 = createApp(
 {
@@ -829,10 +806,10 @@ const ListDataSimpleVue3 = createApp(
 		listDataSimple: function()
 		{
 			if (
-				document.querySelector(".ar-fetch-listdata-simple") !== null &&
-				document.querySelector(".ar-fetch-listdata-simple").getAttribute("data-url") !== null) 
+				document.querySelector(".ph-fetch-listdata-simple") !== null &&
+				document.querySelector(".ph-fetch-listdata-simple").getAttribute("data-url") !== null) 
 			{
-				const url = document.querySelector(".ar-fetch-listdata-simple").getAttribute("data-url");
+				const url = document.querySelector(".ph-fetch-listdata-simple").getAttribute("data-url");
 
 				axios.get(url)
 				.then(response => 

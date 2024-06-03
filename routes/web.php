@@ -103,6 +103,10 @@ Route::name('admin.')
 				Route::get('/', 'index')->name('index');
 				Route::get('/profile/{idOrSlug}', 'show')->name('show');
 				Route::get('/{idOrSlug}', 'edit')->name('edit');
+				Route::post('/store', 'store')->name('store');
+				Route::match(['post', 'put'], '/update/{idOrSlug}', 'update')->name('update');
+				Route::delete('/destroy/{idOrSlug}', 'destroy')->name('destroy');
+			});
 		});
 	});
 
