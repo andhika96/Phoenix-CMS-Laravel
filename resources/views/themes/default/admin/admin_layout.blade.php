@@ -16,6 +16,9 @@
 			<!--- Simplebar CSS --->
 			<link rel="stylesheet" href="https://unpkg.com/simplebar@latest/dist/simplebar.css">
 
+			<!--- Vue Select CSS --->
+			<link rel="stylesheet" href="https://unpkg.com/vue-select/dist/vue-select.css">
+
 			<!-- Custom CSS -->
 			<link href="{{ asset('assets/css/aruna-v3.css') }}" rel="stylesheet">
 			<link href="{{ asset('assets/css/aruna-admin-v6.css?v=time()') }}" rel="stylesheet">
@@ -365,10 +368,10 @@
 			<script src="https://unpkg.com/vue/dist/vue.global.prod.js"></script>
 
 			<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+			<script src="https://unpkg.com/vue-select@beta"></script>
 			<script src="https://unpkg.com/vuejs-paginate-next@latest/dist/vuejs-paginate-next.umd.js"></script>
 			<script src="https://unpkg.com/vue-debounce@latest/dist/vue-debounce.min.js"></script>
 			<script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
-			<script src="https://unpkg.com/vue-debounce@latest/dist/vue-debounce.min.js"></script>
 
 			<script src="https://code.jquery.com/jquery-3.7.1.slim.js" integrity="sha256-UgvvN8vBkgO0luPSUl2s8TIlOSYRoGFAX4jlCIm9Adc=" crossorigin="anonymous"></script>
 			<script src="https://cdn.datatables.net/2.0.7/js/dataTables.min.js"></script>

@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Laravel\Socialite\Facades\Socialite;
 
 Route::get('/', function () {
     return view('welcome');
@@ -27,6 +28,7 @@ Route::controller(App\Http\Controllers\Web\Auth\AuthController::class)->group(fu
 	Route::get('auth/login', 'login')->name('auth.login');
 	Route::post('auth/login', 'authenticate')->name('auth.login.authenticate');
 	Route::get('auth/logout', 'logout')->name('auth.logout');
+	Route::get('auth/logout_sso', 'logoutSSO')->name('auth.logout.sso');
 });
 
 // Route::get('auth/login', [App\Http\Controllers\Web\Auth\AuthController::class, 'login'])->name('auth.login');
@@ -60,9 +62,30 @@ Route::name('admin.')
 
 		Route::controller(\Awesome_AdminRoleController::class)->group(function()
 		{
+			// List and Add
 			Route::get('/role', 'index')->name('awesome_admin.role')->middleware('auth');
 			Route::post('/role', 'store')->name('awesome_admin.role.store')->middleware('auth');
+
+			// Edit
+			// Route::get('/role/edit/{idOrSlug}', 'edit')->name('awesome_admin.role.edit')->middleware('auth');
+			Route::post('/role/edit/{idOrSlug}', 'update')->name('awesome_admin.role.update')->middleware('auth');
+
+			// Delete
+			Route::post('/role/delete/{idOrSlug}', 'destroy')->name('awesome_admin.role.delete')->middleware('auth');
+
+			// Get List
 			Route::get('/role/listdata', 'listdata')->name('awesome_admin.role.list')->middleware('auth');
+
+			// Get List Permission
+			Route::get('/role/listdatapermission', 'listdataPermission')->name('awesome_admin.role.listpermission')->middleware('auth');
+
+			// Get Detail
+			Route::get('/role/detaildata/{idOrSlug}', 'detaildata')->name('awesome_admin.role.detail')->middleware('auth');
+
+			// Get Detail Permission
+			Route::get('/role/detaildatapermission/{idOrSlug}', 'detaildataPermission')->name('awesome_admin.role.detail2')->middleware('auth');
+		
+			Route::get('/role/test', 'test')->name('awesome_admin.role.test')->middleware('auth');
 		});
 
 		Route::controller(\Awesome_AdminPermissionController::class)->group(function()
@@ -82,3 +105,18 @@ Route::name('admin.')
 				Route::get('/{idOrSlug}', 'edit')->name('edit');
 		});
 	});
+
+Route::get('/oauth/azure', function () 
+{
+	return Socialite::driver('azure')->redirect();
+});
+ 
+Route::get('/oauth/azure/callback', function () 
+{
+	dd($user = Socialite::driver('azure')->stateless()->user());
+});
+
+Route::get('/oauth/azure', function () 
+{
+	return Socialite::driver('azure')->redirect();
+});

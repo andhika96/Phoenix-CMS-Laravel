@@ -60,7 +60,10 @@ class Awesome_AdminRoleController extends Controller
     {
         if ($request->validated())
         {
+            $permissions = explode(",", $request->input('permissions'));
+
             $role = Role::create(['name' => $request->input('role_name')]);
+            $role->givePermissionTo($permissions);
 
             return response()->json(['success' => true, 'status' => 'success', 'message' => 'Data added']);
         }   
@@ -85,17 +88,49 @@ class Awesome_AdminRoleController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Awesome_Admin $awesome_Admin)
+    public function update(SubmitRoleRequest $request)
     {
-        //
+        if ($request->validated())
+        {
+            $role = Role::find($request->route('idOrSlug'));
+
+            if ($role !== null)
+            {
+                $permissions = explode(",", $request->input('permissions'));
+
+                $role->name = $request->input('role_name');
+                $role->syncPermissions($permissions);
+                $role->save(); 
+
+                return response()->json(['success' => true, 'status' => 'success', 'message' => 'Data edited']);
+            }
+
+            return response()->json(['success' => false, 'status' => 'failed', 'message' => 'Data not found']);
+        }  
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Awesome_Admin $awesome_Admin)
+    public function destroy(Request $request)
     {
-        //
+        if ($request->route('idOrSlug') > 1)
+        {
+            $role = Role::find($request->route('idOrSlug'));
+
+            if ($role !== null)
+            {
+                $role->delete(); 
+
+                return response()->json(['success' => true, 'status' => 'success', 'message' => 'Data deleted']);
+            }
+
+            return response()->json(['success' => false, 'status' => 'failed', 'message' => 'Data not found']);
+        }  
+        else
+        {
+            return response()->json(['success' => false, 'status' => 'failed', 'message' => 'Id or Slug is empty']);
+        }
     }
 
     public function listdata()
@@ -103,5 +138,58 @@ class Awesome_AdminRoleController extends Controller
         $roles = Roles::get();
 
         return response()->json(['success' => true, 'status' => 'success', 'message' => 'Data found', 'data' => $roles]);
+    }
+
+    public function listdataPermission()
+    {
+        $roles = Permission::get();
+
+        foreach ($roles as $key => $value) 
+        {
+            $new_output[$key] = $value['name'];
+        }
+
+        return response()->json(['success' => true, 'status' => 'success', 'message' => 'Data found', 'data' => $new_output]);
+    }
+
+    public function detaildata($role_id)
+    {
+        $role = Role::find($role_id);
+
+        if ($role !== null)
+        {
+            return response()->json(['success' => true, 'status' => 'success', 'message' => 'Data found', 'data' => $role]);
+        }
+
+        return response()->json(['success' => false, 'status' => 'failed', 'message' => 'Data not found']);
+    }
+
+    public function detaildataPermission($role_id)
+    {
+        $role = Role::find($role_id);
+
+        foreach ($role->getAllPermissions() as $key => $value) 
+        {
+            $new_output[$key] = $value['name'];
+        }
+
+        if ($role !== null)
+        {
+            return response()->json(['success' => true, 'status' => 'success', 'message' => 'Data found', 'data' => $new_output]);
+        }
+
+        return response()->json(['success' => false, 'status' => 'failed', 'message' => 'Data not found']);
+    }
+
+    public function test()
+    {
+        $data = 'edit articles,view articles,delete articles';
+
+        $output = explode(",", $data);
+
+        // dd($output);
+
+        print_r($output);
+        exit;
     }
 }

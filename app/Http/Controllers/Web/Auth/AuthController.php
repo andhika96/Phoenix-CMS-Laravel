@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
+use Laravel\Socialite\Facades\Socialite;
+
 class AuthController extends Controller
 {
 	public function login(Request $request)
@@ -104,6 +106,15 @@ class AuthController extends Controller
 		$request->session()->regenerateToken();
 	 
 		return redirect('/auth');
+	}
+
+	public function logoutSSO(Request $request) 
+	{
+		Auth::guard()->logout();
+
+		$request->session()->flush();
+		$azureLogoutUrl = Socialite::driver('azure')->getLogoutUrl(route('login'));
+		return redirect($azureLogoutUrl);
 	}
 
 	public function asd()

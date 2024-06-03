@@ -17,6 +17,12 @@ use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
+    public Request $request;
+
+    public function __construct()
+    {
+        $this->request = new Request();
+    }
 
     public function index(): View
     {
@@ -54,7 +60,7 @@ class DashboardController extends Controller
         // $user->save();
 
         // $role = Role::create(['name' => 'General Member']);
-        // $permission = Permission::create(['name' => 'edit articles']);
+        // $permission = Permission::create(['name' => 'permission testing']);
 
         // $role = Role::findByName('Administrator');
         // $role->givePermissionTo('edit articles');
@@ -68,7 +74,23 @@ class DashboardController extends Controller
         //     return response()->json(['status' => 'failed', 'message' => 'You are not Admin!', 'data' => '']);
         // }
 
-        $role = Role::delete(['name' => 'edit articles']);
+        // $role = Role::delete(['name' => 'edit articles']);
+
+        // $role = Role::findOrFail(11);
+        // $role = Role::find(111);
+        // $role->name = 'Testing 2';
+        // $role->save(); 
+
+        // $role->update(['name' => 'Testing 2']);
+
+        // $role->delete();
+
+        $permission = Permission::create(['name' => 'permission testing']);
+        //$permission = Permission::find(5);
+        // $permission->name = 'Testing 2';
+        // $permission->save(); 
+
+        //$permission->delete();
 
         return response()->json(['status' => 'success', 'message' => 'Success', 'data' => $permission]);
     }

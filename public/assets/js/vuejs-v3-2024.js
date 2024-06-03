@@ -505,14 +505,38 @@ const ListDataSimpleVue3 = createApp(
 	{
 		return {
 			responseData: [],
+			responseDataPermission: [],
 			responseDetailData: [],
+			responseDetailDataRole: 
+			{
+				viewRoleModal: [],
+				editRoleModal: [],
+				deleteRoleModal: []
+			},
+			responseDetailDataPermission: 
+			{
+				addRolePermissionModal: [],
+				viewRolePermissionModal: [],
+				editRolePermissionModal: []
+			},
 			responseMessage: '',
 			responseStatus: '',
 			responseMessageAfterSubmit: '',
 			responseStatusAfterSubmit: ref(false),
 			successClass: 'text-bg-success',
-			dangerClass: 'text-bg-danger'
+			dangerClass: 'text-bg-danger',
+			books: 
+			[
+				"edit articles",
+				"delete articles",
+				"view articles",
+				"permission testing",
+			]
 		}
+	},
+	components: 
+	{
+		vSelect: window["vue-select"]
 	},
 	methods:
 	{
@@ -647,6 +671,161 @@ const ListDataSimpleVue3 = createApp(
 				document.getElementsByClassName("btn-submit-loading")[0].remove();
 			});
 		},
+		submitMultipleData: function(event, idSubmit)
+		{
+			event.preventDefault();
+
+			// Get id form submit
+			let getIdFormSubmit = document.getElementById("ph-submit-multipledata-"+idSubmit);
+
+			// Get value of attribute in HTML.
+			let formActionURL = getIdFormSubmit.getElementsByTagName("form")[0].getAttribute("action");
+			let formMethod = getIdFormSubmit.getElementsByTagName("form")[0].getAttribute("method");
+
+			// FormData objects are used to capture HTML form and submit it using fetch or another network method.
+			let formData = new FormData(this.$refs['formHTML-'+idSubmit]);
+
+			// Get class button name to change the button to button loading state .
+			getIdFormSubmit.getElementsByClassName("btn-submit-multipledata")[0].insertAdjacentHTML("beforebegin", "<a class=\"btn btn-secondary btn-submit-loading font-size-inherit\">Submitting <div class=\"spinner-border spinner-border-sm text-light ml-1\" role=\"status\"><span class=\"sr-only\">Loading...</span></div></a>");
+			getIdFormSubmit.getElementsByClassName("btn-submit-multipledata")[0].remove();
+
+			axios(
+			{
+				url: formActionURL,
+				method: formMethod,
+				data: formData,
+				headers: { "Content-Type": "multipart/form-data", 'X-Requested-With': 'XMLHttpRequest' }
+			})
+			.then(response => 
+			{
+				if (response.data.status == 'success') 
+				{
+					if (response.data.message instanceof Object == true ||
+						response.data.message instanceof Array == true) 
+					{
+						this.isArrayMessageAfterSubmit = 1;
+					}
+					else 
+					{
+						this.isArrayMessageAfterSubmit = 0;
+					}
+
+					this.listDataSimple();
+
+					this.responseStatusAfterSubmit = true;
+					this.responseMessageAfterSubmit = response.data.message;
+
+					// We use toast from Bootstrap 5
+					let toastBox = getIdFormSubmit.getElementsByClassName("ph-notice-toast")[0];
+
+					let toast = new bootstrap.Toast(toastBox);
+
+					window.setTimeout(function() 
+					{
+						toast.show();
+					}, 100);
+
+					window.setTimeout(function() 
+					{
+						const modalMultipleFormData = bootstrap.Modal.getOrCreateInstance(getIdFormSubmit);
+
+						modalMultipleFormData.hide();
+					}, 200);
+
+					getIdFormSubmit.getElementsByTagName("form")[0].reset();
+
+					getIdFormSubmit.getElementsByClassName("btn-submit-loading")[0].insertAdjacentHTML("beforebegin", "<input type=\"submit\" class=\"btn btn-primary btn-submit-multipledata font-size-inherit\" value=\"Submit\">");
+					getIdFormSubmit.getElementsByClassName("btn-submit-loading")[0].remove();
+
+					// console.log(response.data);
+				}
+				else if (response.data.status == 'failed') 
+				{
+					if (response.data.message instanceof Object == true ||
+						response.data.message instanceof Array == true) 
+					{
+						this.isArrayMessageAfterSubmit = 1;
+					}
+					else 
+					{
+						this.isArrayMessageAfterSubmit = 0;
+					}
+
+					this.responseStatusAfterSubmit = false;
+					this.responseMessageAfterSubmit = response.data.message;
+
+					// We use toast from Bootstrap 5
+					let toastBox = getIdFormSubmit.getElementsByClassName("ph-notice-toast")[0];
+
+					let toast = new bootstrap.Toast(toastBox);
+					
+					window.setTimeout(function() 
+					{
+						toast.show();
+					}, 100);
+
+					getIdFormSubmit.getElementsByClassName("btn-submit-loading")[0].insertAdjacentHTML("beforebegin", "<input type=\"submit\" class=\"btn btn-primary btn-submit-multipledata font-size-inherit\" value=\"Submit\">");
+					getIdFormSubmit.getElementsByClassName("btn-submit-loading")[0].remove();
+
+					// console.log(response.data.message instanceof Object);
+				}
+			})
+			.catch(error => 
+			{
+				this.responseStatusAfterSubmit = ref(false);
+
+				if (error.response.data.message instanceof Object == true ||
+					error.response.data.message instanceof Array == true) 
+				{
+					this.isArrayMessageAfterSubmit = 1;
+				}
+				else 
+				{
+					this.isArrayMessageAfterSubmit = 0;
+				}
+
+				if (error.response !== undefined) 
+				{
+					this.responseStatusAfterSubmit = false;
+					this.responseMessageAfterSubmit = error.response.data.message;
+				}
+				else 
+				{
+					this.responseStatusAfterSubmit = false;
+					this.responseMessageAfterSubmit = error.message;
+				}
+
+				// We use toast from Bootstrap 5
+				let toastBox = getIdFormSubmit.getElementsByClassName("ph-notice-toast")[0];
+
+				let toast = new bootstrap.Toast(toastBox);
+				
+				window.setTimeout(function() 
+				{
+					toast.show();
+				}, 100);
+
+				getIdFormSubmit.getElementsByClassName("btn-submit-loading")[0].insertAdjacentHTML("beforebegin", "<input type=\"submit\" class=\"btn btn-primary btn-submit-multipledata font-size-inherit\" value=\"Submit\">");
+				getIdFormSubmit.getElementsByClassName("btn-submit-loading")[0].remove();
+			});
+		},
+		closeModalMultipleData: function(idSubmit)
+		{
+			// Get id form submit
+			let getIdFormSubmit = document.getElementById("ph-submit-multipledata-"+idSubmit);
+
+			if (getIdFormSubmit !== null)
+			{
+				// We use toast from Bootstrap 5
+				let toastBox = getIdFormSubmit.getElementsByClassName("ph-notice-toast")[0];
+				
+				let toast = bootstrap.Toast.getOrCreateInstance(toastBox);
+
+				toast.hide();
+			}
+
+			console.log('closed');
+		},
 		listDataSimple: function()
 		{
 			if (
@@ -677,10 +856,161 @@ const ListDataSimpleVue3 = createApp(
 					console.log(this.responseMessage);
 				});
 			}
+		},
+		listDataPermission: function()
+		{
+			if (
+				document.querySelector(".ar-fetch-listdata-permission") !== null &&
+				document.querySelector(".ar-fetch-listdata-permission").getAttribute("data-url") !== null) 
+			{
+				const url = document.querySelector(".ar-fetch-listdata-permission").getAttribute("data-url");
+
+				axios.get(url)
+				.then(response => 
+				{
+					this.responseDataPermission = response.data.data;
+					this.responseStatus = response.data.status;
+					this.responseMessage = response.data.message;
+
+					// console.log(this.responseData);
+				})
+				.catch(function (error) 
+				{
+					this.responseStatus = response.data.status;
+					this.responseMessage = response.data.message;
+
+					console.log(error.response);
+				})
+				.finally(() => 
+				{
+					console.log(this.responseStatus);
+					console.log(this.responseMessage);
+				});
+			}
+		},
+		detailDataRoles: function(KeyId, KeyValue)
+		{
+			if (
+				document.querySelector(".ar-fetch-detail-multipledata-simple-"+KeyId+"-"+KeyValue) !== null &&
+				document.querySelector(".ar-fetch-detail-multipledata-simple-"+KeyId+"-"+KeyValue).getAttribute("data-url") !== null) 
+			{
+				const url = document.querySelector(".ar-fetch-detail-multipledata-simple-"+KeyId+"-"+KeyValue).getAttribute("data-url");
+				// const id = document.querySelector(".ar-fetch-detaildata-simple-"+KeyId+"-"+KeyValue).getAttribute("data-id");
+
+				axios.get(url+'/'+KeyValue)
+				.then(response => 
+				{
+					// this.responseData = response.data.data;
+					
+					if (KeyId == 'viewRoleModal')
+					{
+						this.responseDetailDataRole.viewRoleModal = response.data.data;
+
+						// console.log(this.responseDetailDataRole.viewRoleModal);
+					}
+					else if (KeyId == 'editRoleModal')
+					{
+						this.responseDetailDataRole.editRoleModal = response.data.data;
+
+						// console.log(this.responseDetailDataRole.editRoleModal);
+					}
+					else if (KeyId == 'deleteRoleModal')
+					{
+						this.responseDetailDataRole.deleteRoleModal = response.data.data;
+
+						// console.log(this.responseDetailDataRole.deleteRoleModal);
+					}
+
+					this.responseStatus = response.data.status;
+					this.responseMessage = response.data.message;
+
+					// console.log(this.responseData);
+				})
+				.catch(function (error) 
+				{
+					this.responseStatus = error.response.data.status;
+					this.responseMessage = error.response.data.message;
+
+					console.log(error.response);
+				})
+				.finally(() => 
+				{
+					console.log(this.responseStatus);
+					console.log(this.responseMessage);
+				});
+			}
+		},
+		detailDataPermissions: function(KeyId, KeyValue)
+		{
+			if (
+				document.querySelector(".ar-fetch-detail-multipledata-simple-"+KeyId+"-"+KeyValue) !== null &&
+				document.querySelector(".ar-fetch-detail-multipledata-simple-"+KeyId+"-"+KeyValue).getAttribute("data-url") !== null) 
+			{
+				const url = document.querySelector(".ar-fetch-detail-multipledata-simple-"+KeyId+"-"+KeyValue).getAttribute("data-url-2");
+
+				axios.get(url+'/'+KeyValue)
+				.then(response => 
+				{
+					if (KeyId == 'viewRoleModal')
+					{
+						this.responseDetailDataPermission.viewRolePermissionModal = response.data.data;
+
+						// console.log(this.responseDetailDataMultiple2.viewRolePermissionModal);
+					}
+					else if (KeyId == 'editRoleModal')
+					{
+						this.responseDetailDataPermission.editRolePermissionModal = response.data.data;
+
+						// console.log(this.responseDetailDataMultiple2.editRolePermissionModal);
+					}
+
+					this.responseStatus = response.data.status;
+					this.responseMessage = response.data.message;
+
+					// console.log(this.responseData);
+				})
+				.catch(function (error) 
+				{
+					this.responseStatus = error.response.data.status;
+					this.responseMessage = error.response.data.message;
+
+					console.log(error.response);
+				})
+				.finally(() => 
+				{
+					console.log(this.responseStatus);
+					console.log(this.responseMessage);
+				});
+			}
+		},
+		showModal: function(ModalId, DataId)
+		{
+			if (ModalId == 'viewRoleModal')
+			{
+				this.detailDataRoles(ModalId, DataId);
+				this.detailDataPermissions(ModalId, DataId);
+
+				// console.log(ModalId);
+			}
+			else if (ModalId == 'editRoleModal')
+			{
+				this.detailDataRoles(ModalId, DataId);
+				this.detailDataPermissions(ModalId, DataId);
+
+				// console.log(ModalId);
+			}
+			else if (ModalId == 'deleteRoleModal')
+			{
+				this.detailDataRoles(ModalId, DataId);
+
+				// console.log(ModalId);
+			}
 		}
 	},
 	mounted: function()
 	{
 		this.listDataSimple();
+
+		this.listDataPermission();
 	}
 }).mount('#ph-list-data-simple');
