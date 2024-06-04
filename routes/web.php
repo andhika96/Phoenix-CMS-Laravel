@@ -87,7 +87,7 @@ Route::name('admin.')
 		Route::controller(\Awesome_Admin_PermissionController::class)->group(function()
 		{
 			// List and Add
-			Route::get('/permission', 'index')->middleware('auth');
+			Route::get('/permission', 'index')->name('awesome_admin.permission')->middleware('auth');
 			Route::post('/permission', 'store')->name('awesome_admin.permission.store')->middleware('auth');
 			
 			// Edit

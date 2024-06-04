@@ -8,13 +8,29 @@ use Diglactic\Breadcrumbs\Breadcrumbs;
 //  with `$trail`. This is nice for IDE type checking and completion.
 use Diglactic\Breadcrumbs\Generator as BreadcrumbTrail;
 
-// Home
-Breadcrumbs::for('awesome_admin', function (BreadcrumbTrail $trail) {
+// Awesome Admin
+Breadcrumbs::for('awesome_admin', function (BreadcrumbTrail $trail) 
+{
     $trail->push('Awesome Admin', route('admin.awesome_admin'));
 });
 
-// Home > Blog
-Breadcrumbs::for('config', function (BreadcrumbTrail $trail) {
+// Awesome Admin > Config
+Breadcrumbs::for('awesome_admin.config', function (BreadcrumbTrail $trail) 
+{
     $trail->parent('awesome_admin');
     $trail->push('Site Config', route('admin.awesome_admin.config'));
+});
+
+// Awesome Admin > Role
+Breadcrumbs::for('awesome_admin.role', function (BreadcrumbTrail $trail) 
+{
+    $trail->parent('awesome_admin');
+    $trail->push('Manage Role', route('admin.awesome_admin.role'));
+});
+
+// Awesome Admin > Permission
+Breadcrumbs::for('awesome_admin.permission', function (BreadcrumbTrail $trail) 
+{
+    $trail->parent('awesome_admin');
+    $trail->push('Manage Permission', route('admin.awesome_admin.permission'));
 });

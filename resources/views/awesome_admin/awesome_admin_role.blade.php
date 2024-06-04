@@ -30,6 +30,8 @@
 	}
 	</style>
 
+	{{ Breadcrumbs::render('awesome_admin.role') }}
+
 	<div class="arv6-box p-4" id="ph-list-data-simple">
 		<div class="arv6-header d-lg-flex justify-content-lg-between align-items-lg-center pb-3 mb-2 border-bottom">
 			<div class="h5 mb-0">

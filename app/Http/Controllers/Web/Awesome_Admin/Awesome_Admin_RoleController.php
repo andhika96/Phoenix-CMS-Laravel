@@ -185,13 +185,29 @@ class Awesome_Admin_RoleController extends Controller
 
     public function test()
     {
-        $data = 'edit articles,view articles,delete articles';
+        $data = 
+        [
+            'modelSubmit' => 'App\Models\Account',
+            'schema' =>
+            [
+                'username' =>
+                [
+                    'type' => 'text',
+                    'placeholder' => 'Username'
+                ],
+                'fullname' =>
+                [
+                    'type' => 'text',
+                    'placeholder' => 'Fullname'
+                ],
+                'email' =>
+                [
+                    'type' => 'text',
+                    'placeholder' => 'Email'
+                ]
+            ]
+        ];
 
-        $output = explode(",", $data);
-
-        // dd($output);
-
-        print_r($output);
-        exit;
+        return view('awesome_admin.awesome_admin_test', ['forms' => $data]); 
     }
 }

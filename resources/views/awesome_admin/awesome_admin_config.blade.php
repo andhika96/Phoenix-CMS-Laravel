@@ -1,7 +1,7 @@
 @extends('themes.default.admin.admin_layout')
 
 @section('content')
-	{{ Breadcrumbs::render('config') }}
+	{{ Breadcrumbs::render('awesome_admin.config') }}
 
 	<div class="arv6-box p-4">
 		<div class="arv6-header d-lg-flex justify-content-lg-between align-items-lg-center pb-3 mb-4 border-bottom">
