@@ -55,7 +55,7 @@ Route::name('admin.')
 			Route::get('/', 'index')->middleware('auth');
 		});
 
-		Route::controller(\Awesome_AdminRoleController::class)->group(function()
+		Route::controller(\Awesome_AdminConfigController::class)->group(function()
 		{
 			Route::get('/config', 'index')->middleware('auth');
 		});

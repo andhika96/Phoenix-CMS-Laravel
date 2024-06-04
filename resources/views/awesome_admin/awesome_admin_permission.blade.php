@@ -21,7 +21,7 @@
 		</div>
 
 		<div class="row gx-5 gy-3 gy-lg-3 gx-lg-4 mt-0">
-			<div class="col-12 col-lg-6 ar-fetch-listdata-simple" data-url="{{ url('awesome_admin/permission/listdata') }}">
+			<div class="col-12 col-lg-6 ar-fetch-listdata-rp" data-url="{{ url('awesome_admin/permission/listdata') }}">
 				<div class="h6 mb-3"><i class="fad fa-list-ul fa-fw me-1"></i> List of Data</div>
 
 				<ul class="list-group list-group-flush">
@@ -34,7 +34,7 @@
 			<div class="col-12 col-lg-6">
 				<div class="h6 mb-3"><i class="fad fa-plus fa-fw me-1"></i> Add New Data</div>
 
-				<div id="ph-submit-data">
+				<div id="ph-submit-data-rp">
 					<div class="ph-notice">
 						<div aria-live="polite" aria-atomic="true" class="position-relative">
 							<div class="toast-container position-fixed top-0 end-0 p-3">

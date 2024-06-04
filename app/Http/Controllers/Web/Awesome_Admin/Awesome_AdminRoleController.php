@@ -137,7 +137,8 @@ class Awesome_AdminRoleController extends Controller
     {
         $roles = Roles::get();
 
-        return response()->json(['success' => true, 'status' => 'success', 'message' => 'Data found', 'data' => $roles]);
+        // return response()->json(['success' => true, 'status' => 'success', 'message' => 'Data found', 'data' => $roles]);
+        return response()->json(['success' => false, 'status' => 'failed', 'message' => 'Data not found', 'data' => []]);
     }
 
     public function listdataPermission()
@@ -168,9 +169,17 @@ class Awesome_AdminRoleController extends Controller
     {
         $role = Role::find($role_id);
 
-        foreach ($role->getAllPermissions() as $key => $value) 
+        if (count($role->getAllPermissions()) !== 0)
         {
-            $new_output[$key] = $value['name'];
+            foreach ($role->getAllPermissions() as $key => $value) 
+            {
+
+                $new_output[$key] = $value['name'];
+            }
+        }
+        else
+        {
+            $new_output = [];
         }
 
         if ($role !== null)

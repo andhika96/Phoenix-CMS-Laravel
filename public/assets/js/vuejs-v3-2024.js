@@ -499,13 +499,13 @@ const ListDataVue3 = createApp({
 }).mount('#ph-list-data');
 // END: Fetch Data
 
-const ListDataSimpleVue3 = createApp(
+const ListDataRolePermissionVue3 = createApp(
 {
 	data() 
 	{
 		return {
 			responseData: [],
-			responseDataPermission: [],
+			responseDataAllPermissionForRole: [],
 			responseDetailData: [],
 			responseDetailDataRole: 
 			{
@@ -519,19 +519,13 @@ const ListDataSimpleVue3 = createApp(
 				viewRolePermissionModal: [],
 				editRolePermissionModal: []
 			},
-			responseMessage: '',
-			responseStatus: '',
+			responseMessage: {},
+			responseStatus: {},
 			responseMessageAfterSubmit: '',
 			responseStatusAfterSubmit: ref(false),
 			successClass: 'text-bg-success',
 			dangerClass: 'text-bg-danger',
-			books: 
-			[
-				"edit articles",
-				"delete articles",
-				"view articles",
-				"permission testing",
-			]
+			loadingData: true
 		}
 	},
 	components: 
@@ -545,7 +539,7 @@ const ListDataSimpleVue3 = createApp(
 			event.preventDefault();
 
 			// Get id form submit
-			let getIdFormSubmit = document.getElementById("ph-submit-data");
+			let getIdFormSubmit = document.getElementById("ph-submit-data-rp");
 
 			// Get value of attribute in HTML.
 			let formActionURL = getIdFormSubmit.getElementsByTagName("form")[0].getAttribute("action");
@@ -579,7 +573,7 @@ const ListDataSimpleVue3 = createApp(
 						this.isArrayMessageAfterSubmit = 0;
 					}
 
-					this.listDataSimple();
+					this.listData();
 
 					this.responseStatusAfterSubmit = true;
 					this.responseMessageAfterSubmit = response.data.message;
@@ -710,7 +704,7 @@ const ListDataSimpleVue3 = createApp(
 						this.isArrayMessageAfterSubmit = 0;
 					}
 
-					this.listDataSimple();
+					this.listData();
 
 					this.responseStatusAfterSubmit = true;
 					this.responseMessageAfterSubmit = response.data.message;
@@ -730,7 +724,7 @@ const ListDataSimpleVue3 = createApp(
 						const modalMultipleFormData = bootstrap.Modal.getOrCreateInstance(getIdFormSubmit);
 
 						modalMultipleFormData.hide();
-					}, 200);
+					}, 1200);
 
 					getIdFormSubmit.getElementsByTagName("form")[0].reset();
 
@@ -826,65 +820,84 @@ const ListDataSimpleVue3 = createApp(
 
 			console.log('closed');
 		},
-		listDataSimple: function()
+		listData: function()
 		{
 			if (
-				document.querySelector(".ar-fetch-listdata-simple") !== null &&
-				document.querySelector(".ar-fetch-listdata-simple").getAttribute("data-url") !== null) 
+				document.querySelector(".ar-fetch-listdata-rp") !== null &&
+				document.querySelector(".ar-fetch-listdata-rp").getAttribute("data-url") !== null) 
 			{
-				const url = document.querySelector(".ar-fetch-listdata-simple").getAttribute("data-url");
+				const url = document.querySelector(".ar-fetch-listdata-rp").getAttribute("data-url");
 
 				axios.get(url)
 				.then(response => 
 				{
 					this.responseData = response.data.data;
-					this.responseStatus = response.data.status;
-					this.responseMessage = response.data.message;
+					this.responseStatus.role = response.data.status;
+					this.responseMessage.role = response.data.message;
 
-					// console.log(this.responseData);
+					console.log(this.responseStatus.role);
 				})
 				.catch(function (error) 
 				{
-					this.responseStatus = response.data.status;
-					this.responseMessage = response.data.message;
-
-					console.log(error.response);
+					this.responseStatus.role = response.data.status;
+					this.responseMessage.role = response.data.message;
 				})
 				.finally(() => 
-				{
-					console.log(this.responseStatus);
-					console.log(this.responseMessage);
+				{	
+					this.loadingData = false;
+
+					if (this.loadingData == false)
+					{
+						window.setTimeout(function() 
+						{
+							if (document.querySelector(".ph-data-load-status") !== null) 
+							{
+								if (getComputedStyle(document.querySelector('.ph-data-load-status'), null).display == 'none') 
+								{
+									document.querySelector(".ph-data-load-status").style.display = 'block';
+
+									
+								}
+							}
+
+							// if (document.querySelector(".ph-data-load-content") !== null) 
+							// {
+							// 	if (getComputedStyle(document.querySelector('.ph-data-load-content'), null).display == 'none') 
+							// 	{
+							// 		document.querySelector(".ph-data-load-content").style.display = 'block';
+							// 	}
+							// }		
+						}, 100);
+					}
 				});
 			}
 		},
-		listDataPermission: function()
+		listDataAllPermissionForRole: function()
 		{
 			if (
-				document.querySelector(".ar-fetch-listdata-permission") !== null &&
-				document.querySelector(".ar-fetch-listdata-permission").getAttribute("data-url") !== null) 
+				document.querySelector(".ar-fetch-listdata-permissionrole") !== null &&
+				document.querySelector(".ar-fetch-listdata-permissionrole").getAttribute("data-url") !== null) 
 			{
-				const url = document.querySelector(".ar-fetch-listdata-permission").getAttribute("data-url");
+				const url = document.querySelector(".ar-fetch-listdata-permissionrole").getAttribute("data-url");
 
 				axios.get(url)
 				.then(response => 
 				{
-					this.responseDataPermission = response.data.data;
-					this.responseStatus = response.data.status;
-					this.responseMessage = response.data.message;
-
-					// console.log(this.responseData);
+					this.responseDataAllPermissionForRole = response.data.data;
+					this.responseStatus.permissionrole = response.data.status;
+					this.responseMessage.permissionrole = response.data.message;
 				})
 				.catch(function (error) 
 				{
-					this.responseStatus = response.data.status;
-					this.responseMessage = response.data.message;
+					this.responseStatus.permissionrole = response.data.status;
+					this.responseMessage.permissionrole = response.data.message;
 
-					console.log(error.response);
+					//console.log(error.response);
 				})
 				.finally(() => 
 				{
-					console.log(this.responseStatus);
-					console.log(this.responseMessage);
+					//console.log(this.responseStatus);
+					//console.log(this.responseMessage);
 				});
 			}
 		},
@@ -940,7 +953,7 @@ const ListDataSimpleVue3 = createApp(
 				});
 			}
 		},
-		detailDataPermissions: function(KeyId, KeyValue)
+		detailDataPermissionRole: function(KeyId, KeyValue)
 		{
 			if (
 				document.querySelector(".ar-fetch-detail-multipledata-simple-"+KeyId+"-"+KeyValue) !== null &&
@@ -974,12 +987,12 @@ const ListDataSimpleVue3 = createApp(
 					this.responseStatus = error.response.data.status;
 					this.responseMessage = error.response.data.message;
 
-					console.log(error.response);
+					//console.log(error.response);
 				})
 				.finally(() => 
 				{
-					console.log(this.responseStatus);
-					console.log(this.responseMessage);
+					//console.log(this.responseStatus);
+					//console.log(this.responseMessage);
 				});
 			}
 		},
@@ -988,14 +1001,14 @@ const ListDataSimpleVue3 = createApp(
 			if (ModalId == 'viewRoleModal')
 			{
 				this.detailDataRoles(ModalId, DataId);
-				this.detailDataPermissions(ModalId, DataId);
+				this.detailDataPermissionRole(ModalId, DataId);
 
 				// console.log(ModalId);
 			}
 			else if (ModalId == 'editRoleModal')
 			{
 				this.detailDataRoles(ModalId, DataId);
-				this.detailDataPermissions(ModalId, DataId);
+				this.detailDataPermissionRole(ModalId, DataId);
 
 				// console.log(ModalId);
 			}
@@ -1009,8 +1022,8 @@ const ListDataSimpleVue3 = createApp(
 	},
 	mounted: function()
 	{
-		this.listDataSimple();
+		this.listData();
 
-		this.listDataPermission();
+		this.listDataAllPermissionForRole();
 	}
 }).mount('#ph-list-data-simple');
