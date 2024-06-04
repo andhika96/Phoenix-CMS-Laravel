@@ -72,7 +72,7 @@
 								Dashboard
 							</a>
 
-							<a href="{{ url('app/user') }}" class="list-group-item list-group-item-action">
+							<a href="{{ url('awesome_admin/user') }}" class="list-group-item list-group-item-action">
 								<i class="fad fa-tachometer-alt fa-fw me-2"></i>
 								Testing List Data
 							</a>
