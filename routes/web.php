@@ -52,12 +52,12 @@ Route::name('admin.')
 	{
 		Route::controller(\Awesome_Admin_Controller::class)->group(function()
 		{
-			Route::get('/', 'index')->middleware('auth');
+			Route::get('/', 'index')->name('awesome_admin')->middleware('auth');
 		});
 
 		Route::controller(\Awesome_Admin_ConfigController::class)->group(function()
 		{
-			Route::get('/config', 'index')->middleware('auth');
+			Route::get('/config', 'index')->name('awesome_admin.config')->middleware('auth');
 		});
 
 		Route::controller(\Awesome_Admin_RoleController::class)->group(function()
