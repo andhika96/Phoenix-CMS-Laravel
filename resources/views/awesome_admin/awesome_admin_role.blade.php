@@ -50,10 +50,10 @@
 		</div>
 
 		<div class="row gx-5 gy-3 gy-lg-3 gx-lg-4 mt-0 ar-fetch-listdata-permissionrole" data-url="{{ url('awesome_admin/role/listdatapermission') }}">
-			<div class="col-12 col-lg-6 ar-fetch-listdata-rp" data-url="{{ url('awesome_admin/role/listdata') }}">
+			<div class="col-12 col-lg-6 ar-fetch-listdata-rp" id="ar-fetch-listdata-rp" data-url="{{ url('awesome_admin/role/listdata') }}">
 				<div class="h6 mb-3"><i class="fad fa-list-ul fa-fw me-1"></i> List of Data</div>
 
-				<div v-if="loadingData" class="text-center p-5">
+				<div v-if="loadingData.listData" class="text-center p-5">
 					<div class="spinner-border text-primary mb-2" role="status">
 						<span class="sr-only"></span>
 					</div>
@@ -71,9 +71,9 @@
 							@{{ item.name }} 
 
 							<span class="float-end">
-								<a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#ph-submit-multipledata-viewRoleModal" :class="'ar-fetch-detail-multipledata-simple-viewRoleModal-'+item.id" data-url="{{ url('awesome_admin/role/detaildata/') }}" data-url-2="{{ url('awesome_admin/role/detaildatapermission/') }}" v-on:click="showModal('viewRoleModal', item.id)">View</a>
-								<a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#ph-submit-multipledata-editRoleModal" :class="'ar-fetch-detail-multipledata-simple-editRoleModal-'+item.id" data-url="{{ url('awesome_admin/role/detaildata/') }}" data-url-2="{{ url('awesome_admin/role/detaildatapermission/') }}" v-on:click="showModal('editRoleModal', item.id)" class="mx-3">Edit</a>
-								<a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#ph-submit-multipledata-deleteRoleModal" :class="'ar-fetch-detail-multipledata-simple-deleteRoleModal-'+item.id" data-url="{{ url('awesome_admin/role/detaildata/') }}" v-on:click="showModal('deleteRoleModal', item.id)" class="text-danger">Delete</a>
+								<a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#ph-submit-multipledata-viewRoleModal" :class="'ar-fetch-detail-multipledata-role-viewRoleModal-'+item.id" data-url="{{ url('awesome_admin/role/detaildata/') }}" data-url-2="{{ url('awesome_admin/role/detaildatapermission/') }}" v-on:click="showModal('viewRoleModal', item.id)">View</a>
+								<a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#ph-submit-multipledata-editRoleModal" :class="'ar-fetch-detail-multipledata-role-editRoleModal-'+item.id" data-url="{{ url('awesome_admin/role/detaildata/') }}" data-url-2="{{ url('awesome_admin/role/detaildatapermission/') }}" v-on:click="showModal('editRoleModal', item.id)" class="mx-3">Edit</a>
+								<a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#ph-submit-multipledata-deleteRoleModal" :class="'ar-fetch-detail-multipledata-role-deleteRoleModal-'+item.id" data-url="{{ url('awesome_admin/role/detaildata/') }}" v-on:click="showModal('deleteRoleModal', item.id)" class="text-danger">Delete</a>
 							</span>
 						</li>
 					</ul>
@@ -150,22 +150,36 @@
 									<h5 class="modal-title">Edit Role </h5>
 								</div>
 
-								<div class="modal-body">
-									<div class="form-group mb-3">
-										<label class="form-label">Role Name</label>
-										<input type="text" name="role_name" class="form-control" v-model="responseDetailDataRole.editRoleModal.name">
+								<div class="modal-body" id="ar-fetch-detail-multipledata-role-editRoleModal">
+									<div v-if="loadingData.detailDataRole" class="text-center p-5">
+										<div class="spinner-border text-primary mb-2" role="status">
+											<span class="sr-only"></span>
+										</div>
+
+										<div class="h6">Loading ...</div>
 									</div>
 
-									<div class="form-group mb-3">
-										<label class="form-label">Permission</label>
+									<div v-else-if="responseStatus.detaildataRole == 'failed'" class="ph-data-load-status" style="display: none">
+										@{{ responseMessage.detailDataRole }}
+									</div>
 
-										<v-select :options="responseDataAllPermissionForRole" v-model="responseDetailDataPermission.editRolePermissionModal" class="font-size-inherit" multiple>
-											<template #open-indicator="{ attributes }">
-												<span v-bind="attributes"><i class="fal fa-angle-down fa-lg"></i></span>
-											</template>
-										</v-select>
+									<div v-else class="ph-data-load-content" style="display: none">
+										<div class="form-group mb-3">
+											<label class="form-label">Role Name</label>
+											<input type="text" name="role_name" class="form-control" v-model="responseDetailDataRole.editRoleModal.name">
+										</div>
 
-										<input type="hidden" name="permissions" class="form-control font-size-inherit" :value="responseDetailDataPermission.editRolePermissionModal">
+										<div class="form-group mb-3">
+											<label class="form-label">Permission</label>
+
+											<v-select :options="responseDataAllPermissionForRole" v-model="responseDetailDataRole.editRoleModal.permissions" class="font-size-inherit" multiple>
+												<template #open-indicator="{ attributes }">
+													<span v-bind="attributes"><i class="fal fa-angle-down fa-lg"></i></span>
+												</template>
+											</v-select>
+
+											<input type="hidden" name="permissions" class="form-control font-size-inherit" :value="responseDetailDataRole.editRoleModal.permissions">
+										</div>
 									</div>								
 								</div>
 
@@ -279,8 +293,6 @@
 							</v-select>
 						
 							<input type="hidden" name="permissions" class="form-control font-size-inherit" :value="responseDetailDataPermission.addRolePermissionModal">
-						
-							@{{ responseDataMultiSelectAdd }}
 						</div>
 
 						<div class="form-group text-end">

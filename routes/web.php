@@ -50,45 +50,41 @@ Route::name('admin.')
 	->namespace('App\Http\Controllers\Web\Awesome_Admin')
 	->group(function() 
 	{
-		Route::controller(\Awesome_AdminController::class)->group(function()
+		Route::controller(\Awesome_Admin_Controller::class)->group(function()
 		{
 			Route::get('/', 'index')->middleware('auth');
 		});
 
-		Route::controller(\Awesome_AdminConfigController::class)->group(function()
+		Route::controller(\Awesome_Admin_ConfigController::class)->group(function()
 		{
 			Route::get('/config', 'index')->middleware('auth');
 		});
 
-		Route::controller(\Awesome_AdminRoleController::class)->group(function()
+		Route::controller(\Awesome_Admin_RoleController::class)->group(function()
 		{
 			// List and Add
 			Route::get('/role', 'index')->name('awesome_admin.role')->middleware('auth');
 			Route::post('/role', 'store')->name('awesome_admin.role.store')->middleware('auth');
 
 			// Edit
-			// Route::get('/role/edit/{idOrSlug}', 'edit')->name('awesome_admin.role.edit')->middleware('auth');
 			Route::post('/role/edit/{idOrSlug}', 'update')->name('awesome_admin.role.update')->middleware('auth');
 
 			// Delete
 			Route::post('/role/delete/{idOrSlug}', 'destroy')->name('awesome_admin.role.delete')->middleware('auth');
 
 			// Get List
-			Route::get('/role/listdata', 'listdata')->name('awesome_admin.role.list')->middleware('auth');
+			Route::get('/role/listdata', 'listData')->name('awesome_admin.role.list')->middleware('auth');
 
 			// Get List Permission
-			Route::get('/role/listdatapermission', 'listdataPermission')->name('awesome_admin.role.listpermission')->middleware('auth');
+			Route::get('/role/listdatapermission', 'listDataPermission')->name('awesome_admin.role.listpermission')->middleware('auth');
 
-			// Get Detail
-			Route::get('/role/detaildata/{idOrSlug}', 'detaildata')->name('awesome_admin.role.detail')->middleware('auth');
-
-			// Get Detail Permission
-			Route::get('/role/detaildatapermission/{idOrSlug}', 'detaildataPermission')->name('awesome_admin.role.detail2')->middleware('auth');
+			// Get Detail Role
+			Route::get('/role/detaildata/{idOrSlug}', 'detailData')->name('awesome_admin.role.detail')->middleware('auth');
 		
 			Route::get('/role/test', 'test')->name('awesome_admin.role.test')->middleware('auth');
 		});
 
-		Route::controller(\Awesome_AdminPermissionController::class)->group(function()
+		Route::controller(\Awesome_Admin_PermissionController::class)->group(function()
 		{
 			Route::get('/permission', 'index')->middleware('auth');
 			Route::post('/permission', 'store')->name('awesome_admin.permission.store')->middleware('auth');
@@ -108,7 +104,6 @@ Route::name('admin.')
 				Route::delete('/destroy/{idOrSlug}', 'destroy')->name('destroy');
 			});
 		});
-	});
 
 Route::get('/oauth/azure', function () 
 {

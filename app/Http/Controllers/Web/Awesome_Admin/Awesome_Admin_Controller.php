@@ -14,7 +14,7 @@ use App\Services\Awesome_AdminService;
 
 use Illuminate\Http\Request;
 
-class Awesome_AdminController extends Controller
+class Awesome_Admin_Controller extends Controller
 {
     public Awesome_AdminService $Awesome_AdminService;
 

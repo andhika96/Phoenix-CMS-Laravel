@@ -502,7 +502,7 @@ const ListDataRolePermissionVue3 = createApp(
 			responseStatusAfterSubmit: ref(false),
 			successClass: 'text-bg-success',
 			dangerClass: 'text-bg-danger',
-			loadingData: true
+			loadingData: {}
 		}
 	},
 	components: 
@@ -805,6 +805,10 @@ const ListDataRolePermissionVue3 = createApp(
 			{
 				const url = document.querySelector(".ar-fetch-listdata-rp").getAttribute("data-url");
 
+				let getIdFormSubmit = document.getElementById("ar-fetch-listdata-rp");
+
+				this.loadingData.listData = true;
+
 				axios.get(url)
 				.then(response => 
 				{
@@ -821,29 +825,29 @@ const ListDataRolePermissionVue3 = createApp(
 				})
 				.finally(() => 
 				{	
-					this.loadingData = false;
+					this.loadingData.listData = false;
 
-					if (this.loadingData == false)
+					if (this.loadingData.listData == false)
 					{
 						window.setTimeout(function() 
 						{
-							if (document.querySelector(".ph-data-load-status") !== null) 
+							if (getIdFormSubmit.querySelector(".ph-data-load-status") !== null) 
 							{
-								if (getComputedStyle(document.querySelector('.ph-data-load-status'), null).display == 'none') 
+								if (getComputedStyle(getIdFormSubmit.querySelector('.ph-data-load-status'), null).display == 'none') 
 								{
-									document.querySelector(".ph-data-load-status").style.display = 'block';
+									getIdFormSubmit.querySelector(".ph-data-load-status").style.display = 'block';
 
 									
 								}
 							}
 
-							// if (document.querySelector(".ph-data-load-content") !== null) 
-							// {
-							// 	if (getComputedStyle(document.querySelector('.ph-data-load-content'), null).display == 'none') 
-							// 	{
-							// 		document.querySelector(".ph-data-load-content").style.display = 'block';
-							// 	}
-							// }		
+							if (getIdFormSubmit.querySelector(".ph-data-load-content") !== null) 
+							{
+								if (getComputedStyle(getIdFormSubmit.querySelector('.ph-data-load-content'), null).display == 'none') 
+								{
+									getIdFormSubmit.querySelector(".ph-data-load-content").style.display = 'block';
+								}
+							}		
 						}, 100);
 					}
 				});
@@ -878,122 +882,95 @@ const ListDataRolePermissionVue3 = createApp(
 				});
 			}
 		},
-		detailDataRoles: function(KeyId, KeyValue)
+		detailDataRole: async function(KeyId, KeyValue)
 		{
 			if (
-				document.querySelector(".ar-fetch-detail-multipledata-simple-"+KeyId+"-"+KeyValue) !== null &&
-				document.querySelector(".ar-fetch-detail-multipledata-simple-"+KeyId+"-"+KeyValue).getAttribute("data-url") !== null) 
+				document.querySelector(".ar-fetch-detail-multipledata-role-"+KeyId+"-"+KeyValue) !== null &&
+				document.querySelector(".ar-fetch-detail-multipledata-role-"+KeyId+"-"+KeyValue).getAttribute("data-url") !== null) 
 			{
-				const url = document.querySelector(".ar-fetch-detail-multipledata-simple-"+KeyId+"-"+KeyValue).getAttribute("data-url");
-				// const id = document.querySelector(".ar-fetch-detaildata-simple-"+KeyId+"-"+KeyValue).getAttribute("data-id");
+				const url = document.querySelector(".ar-fetch-detail-multipledata-role-"+KeyId+"-"+KeyValue).getAttribute("data-url");
 
-				axios.get(url+'/'+KeyValue)
+				await axios.get(url+'/'+KeyValue)
 				.then(response => 
 				{
-					// this.responseData = response.data.data;
-					
-					if (KeyId == 'viewRoleModal')
+					if (response.data.status == 'success')					
 					{
-						this.responseDetailDataRole.viewRoleModal = response.data.data;
-
-						// console.log(this.responseDetailDataRole.viewRoleModal);
-					}
-					else if (KeyId == 'editRoleModal')
-					{
-						this.responseDetailDataRole.editRoleModal = response.data.data;
-
-						// console.log(this.responseDetailDataRole.editRoleModal);
-					}
-					else if (KeyId == 'deleteRoleModal')
-					{
-						this.responseDetailDataRole.deleteRoleModal = response.data.data;
-
-						// console.log(this.responseDetailDataRole.deleteRoleModal);
+						if (KeyId == 'viewRoleModal')
+						{
+							this.responseDetailDataRole.viewRoleModal = response.data.data;
+						}
+						else if (KeyId == 'editRoleModal')
+						{
+							this.responseDetailDataRole.editRoleModal = response.data.data;
+						}
+						else if (KeyId == 'deleteRoleModal')
+						{
+							this.responseDetailDataRole.deleteRoleModal = response.data.data;
+						}
 					}
 
-					this.responseStatus = response.data.status;
-					this.responseMessage = response.data.message;
-
-					// console.log(this.responseData);
+					this.responseStatus.detailDataRole = response.data.status;
+					this.responseMessage.detailDataRole = response.data.message;
 				})
 				.catch(function (error) 
 				{
-					this.responseStatus = error.response.data.status;
-					this.responseMessage = error.response.data.message;
+					this.responseStatus.detailDataRole = error.response.data.status;
+					this.responseMessage.detailDataRole = error.response.data.message;
 
 					console.log(error.response);
 				})
 				.finally(() => 
 				{
-					console.log(this.responseStatus);
-					console.log(this.responseMessage);
+					// Empty	
 				});
 			}
 		},
-		detailDataPermissionRole: function(KeyId, KeyValue)
-		{
-			if (
-				document.querySelector(".ar-fetch-detail-multipledata-simple-"+KeyId+"-"+KeyValue) !== null &&
-				document.querySelector(".ar-fetch-detail-multipledata-simple-"+KeyId+"-"+KeyValue).getAttribute("data-url") !== null) 
-			{
-				const url = document.querySelector(".ar-fetch-detail-multipledata-simple-"+KeyId+"-"+KeyValue).getAttribute("data-url-2");
-
-				axios.get(url+'/'+KeyValue)
-				.then(response => 
-				{
-					if (KeyId == 'viewRoleModal')
-					{
-						this.responseDetailDataPermission.viewRolePermissionModal = response.data.data;
-
-						// console.log(this.responseDetailDataMultiple2.viewRolePermissionModal);
-					}
-					else if (KeyId == 'editRoleModal')
-					{
-						this.responseDetailDataPermission.editRolePermissionModal = response.data.data;
-
-						// console.log(this.responseDetailDataMultiple2.editRolePermissionModal);
-					}
-
-					this.responseStatus = response.data.status;
-					this.responseMessage = response.data.message;
-
-					// console.log(this.responseData);
-				})
-				.catch(function (error) 
-				{
-					this.responseStatus = error.response.data.status;
-					this.responseMessage = error.response.data.message;
-
-					//console.log(error.response);
-				})
-				.finally(() => 
-				{
-					//console.log(this.responseStatus);
-					//console.log(this.responseMessage);
-				});
-			}
-		},
-		showModal: function(ModalId, DataId)
+		showModal: async function(ModalId, DataId)
 		{
 			if (ModalId == 'viewRoleModal')
 			{
-				this.detailDataRoles(ModalId, DataId);
-				this.detailDataPermissionRole(ModalId, DataId);
-
-				// console.log(ModalId);
+				this.detailDataRole(ModalId, DataId);
 			}
 			else if (ModalId == 'editRoleModal')
 			{
-				this.detailDataRoles(ModalId, DataId);
-				this.detailDataPermissionRole(ModalId, DataId);
+				let getIdContainer = document.getElementById("ar-fetch-detail-multipledata-role-"+ModalId);
 
-				// console.log(ModalId);
+				this.loadingData.detailDataRole = true;
+
+				await this.detailDataRole(ModalId, DataId);
+
+				if (this.responseStatus.detailDataRole !== undefined && 
+					this.responseStatus.detailDataRole == 'success' || 
+					this.responseStatus.detailDataRole == 'failed')
+				{
+					this.loadingData.detailDataRole = false;
+				}
+
+				if (this.loadingData.detailDataRole == false)
+				{
+					window.setTimeout(function() 
+					{
+						if (getIdContainer.querySelector(".ph-data-load-status") !== null) 
+						{
+							if (getComputedStyle(getIdContainer.querySelector('.ph-data-load-status'), null).display == 'none') 
+							{
+								getIdContainer.querySelector(".ph-data-load-status").style.display = 'block';
+							}
+						}
+
+						if (getIdContainer.querySelector(".ph-data-load-content") !== null) 
+						{
+							if (getComputedStyle(getIdContainer.querySelector('.ph-data-load-content'), null).display == 'none') 
+							{
+								getIdContainer.querySelector(".ph-data-load-content").style.display = 'block';
+							}
+						}		
+					}, 100);
+				}
 			}
 			else if (ModalId == 'deleteRoleModal')
 			{
 				this.detailDataRoles(ModalId, DataId);
-
-				// console.log(ModalId);
 			}
 		}
 	},

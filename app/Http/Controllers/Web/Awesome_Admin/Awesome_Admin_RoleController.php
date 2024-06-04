@@ -17,7 +17,7 @@ use App\Services\Awesome_AdminService;
 
 use Illuminate\Http\Request;
 
-class Awesome_AdminRoleController extends Controller
+class Awesome_Admin_RoleController extends Controller
 {
     public Awesome_AdminService $Awesome_AdminService;
 
@@ -133,15 +133,14 @@ class Awesome_AdminRoleController extends Controller
         }
     }
 
-    public function listdata()
+    public function listData()
     {
         $roles = Roles::get();
 
-        // return response()->json(['success' => true, 'status' => 'success', 'message' => 'Data found', 'data' => $roles]);
-        return response()->json(['success' => false, 'status' => 'failed', 'message' => 'Data not found', 'data' => []]);
+        return response()->json(['success' => true, 'status' => 'success', 'message' => 'Data found', 'data' => $roles]);
     }
 
-    public function listdataPermission()
+    public function listDataPermission()
     {
         $roles = Permission::get();
 
@@ -153,37 +152,31 @@ class Awesome_AdminRoleController extends Controller
         return response()->json(['success' => true, 'status' => 'success', 'message' => 'Data found', 'data' => $new_output]);
     }
 
-    public function detaildata($role_id)
+    public function detailData($role_id)
     {
         $role = Role::find($role_id);
 
         if ($role !== null)
         {
-            return response()->json(['success' => true, 'status' => 'success', 'message' => 'Data found', 'data' => $role]);
-        }
-
-        return response()->json(['success' => false, 'status' => 'failed', 'message' => 'Data not found']);
-    }
-
-    public function detaildataPermission($role_id)
-    {
-        $role = Role::find($role_id);
-
-        if (count($role->getAllPermissions()) !== 0)
-        {
-            foreach ($role->getAllPermissions() as $key => $value) 
+            if (count($role->getAllPermissions()) !== 0)
             {
-
-                $new_output[$key] = $value['name'];
+                foreach ($role->getAllPermissions() as $key => $value) 
+                {
+                    $permissions[$key] = $value['name'];
+                }
             }
-        }
-        else
-        {
-            $new_output = [];
-        }
+            else
+            {
+                $permissions = [];
+            }
 
-        if ($role !== null)
-        {
+            foreach ($role->toArray() as $key => $value) 
+            {
+                $new_output[$key] = $value;
+            }
+
+            $new_output['permissions'] = $permissions;
+
             return response()->json(['success' => true, 'status' => 'success', 'message' => 'Data found', 'data' => $new_output]);
         }
 
