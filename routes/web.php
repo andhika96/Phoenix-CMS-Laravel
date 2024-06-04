@@ -107,8 +107,16 @@ Route::name('admin.')
 				Route::match(['post', 'put'], '/update/{idOrSlug}', 'update')->name('update');
 				Route::delete('/destroy/{idOrSlug}', 'destroy')->name('destroy');
 			});
+		Route::name('tools.')
+			->prefix('tools')
+			->controller(\Awesome_Admin_FormBuilderController::class)
+			->group(function() 
+			{
+				Route::get('/form', 'index')->name('index');
+				Route::get('/model/columns', 'getModelColumns')->name('model.columns');
+			});
 		});
-	});
+	
 
 Route::get('/oauth/azure', function () 
 {

@@ -1004,3 +1004,135 @@ const ListDataRolePermissionVue3 = createApp(
 		this.listDataAllPermissionForRole();
 	}
 }).mount('#ph-list-data-simple');
+
+// START: Builder Function
+const BuilderFunctionalityVue3 = createApp({
+	data() {
+		return {
+			responseData: [],
+			responseDetailData: [],
+			responseMessage: '',
+			responseStatus: '',
+			getCurrentPage: '',
+			pageUrl: '',
+			getData: '',
+			getTotalData: '',
+			loading: '',
+			loadingnextpage: '',
+			pageCount: '',
+			pageRange: '',
+			showModal: false,
+			formModel	: []
+		}
+	},
+
+	methods: {
+		fetchModelColumn: function (getModel) {
+			if (document.querySelector(".ph-model-columns") !== null && 
+				document.querySelector(".ph-model-columns").getAttribute("data-url") !== null)
+			{
+				const url = document.querySelector(".ph-model-columns").getAttribute("data-url");
+				const modelUrl = url + "?model=" + getModel
+				console.log(modelUrl);
+				axios.get(modelUrl)
+					.then(response => {
+						this.responseData = response.data.data;
+
+						console.log(this.responseData);
+					})
+					.catch(function (error) {
+						console.log(error);
+					})
+					.finally(() => {
+						this.loadComplete();
+					});
+			}
+		},
+
+		loadComplete: function () {
+			this.loading = false;
+			this.loadingnextpage = false;
+
+			if (document.querySelector(".ph-data-status") !== null) {
+				if (getComputedStyle(document.querySelector('.ph-data-status'), null).display == 'none') {
+					document.querySelector(".ph-data-status").style.display = 'block';
+				}
+			}
+
+
+			if (document.querySelector(".ph-data-load") !== null) {
+				if (getComputedStyle(document.querySelector('.ph-data-load'), null).display == 'none') {
+					document.querySelector(".ph-data-load").style.display = 'block';
+				}
+			}
+
+			if (document.querySelector(".ph-total-data-load") !== null) {
+				if (getComputedStyle(document.querySelector('.ph-total-data-load'), null).display ==
+					'none') {
+					document.querySelector(".ph-total-data-load").style.display = 'block';
+				}
+			}
+		},
+
+		submitData: async function (event) {
+			event.preventDefault();
+
+			// Get id form submit
+			let getIdFormSubmit = document.getElementById("ph-form-submit");
+
+			// Get value of attribute in HTML.
+			let formActionURL = getIdFormSubmit.getElementsByTagName("form")[0].getAttribute("action");
+			let formMethod = getIdFormSubmit.getElementsByTagName("form")[0].getAttribute("method");
+
+			console.log(this.$refs.formHTML);
+			// FormData objects are used to capture HTML form and submit it using fetch or another network method.
+			// let formData = new FormData(this.$refs.formHTML);
+
+			// Get class button name to change the button to button loading state .
+			// document.getElementsByClassName("btn-submit")[0].insertAdjacentHTML(
+			// 	"beforebegin",
+			// 	"<a class=\"btn btn-secondary btn-submit-loading p-2\">Submitting <div class=\"spinner-border spinner-border-sm text-light ml-1\" role=\"status\"><span class=\"sr-only\">Loading...</span></div></a>"
+			// );
+			// document.getElementsByClassName("btn-submit")[0].remove();
+
+			// axios({
+			// 	url: formActionURL,
+			// 	method: formMethod,
+			// 	data: formData,
+			// 	headers: {
+			// 		"Content-Type": "multipart/form-data",
+			// 		'X-Requested-With': 'XMLHttpRequest'
+			// 	}
+			// })
+			// 	.then(response => {
+			// 		const formSubmitModal = bootstrap.Modal.getOrCreateInstance("#formSubmitModal");
+
+			// 		if (formSubmitModal) {
+			// 			awaiformSubmitModal.hide();
+			// 		}
+					
+			// 		document.getElementsByClassName("btn-submit-loading")[0].insertAdjacentHTML(
+			// 			"beforebegin",
+			// 			"<a class=\"btn btn-success btn-logged p-2\">Success <i class=\"far fa-check-circle fa-fw mr-1\"></i></div></a>"
+			// 		);
+			// 		document.getElementsByClassName("btn-submit-loading")[0].remove();
+
+			// 		console.log(response.data);
+			// 	})
+			// 	.catch(error => {
+			// 		document.getElementsByClassName("btn-submit-loading")[0].insertAdjacentHTML(
+			// 			"beforebegin",
+			// 			'<button type="submit" class="btn btn-success btn-submit"><i class="fad fa-save me-2"></i>Save</button>'
+			// 		);
+			// 		document.getElementsByClassName("btn-submit-loading")[0].remove();
+
+			// 		console.log(error.response.data);
+			// 	});
+		},
+	},
+
+	mounted() {
+		
+	}
+}).mount('#ph-builder-app');
+// END: Builder Function
