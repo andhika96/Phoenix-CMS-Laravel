@@ -35,18 +35,6 @@
 			<div class="h5 mb-0">
 				<i class="fad fa-project-diagram fa-fw me-1"></i> Manage Role
 			</div>
-
-			<div class="mt-3 mt-lg-0 d-none">
-				<div class="row g-3">
-					<div class="col-auto">
-						<a href="#!" class="btn btn-primary">TESTING</a>
-					</div>
-
-					<div class="col-auto">
-						<a href="#!" class="btn btn-primary">TESTING</a>
-					</div>
-				</div>
-			</div>
 		</div>
 
 		<div class="row gx-5 gy-3 gy-lg-3 gx-lg-4 mt-0 ar-fetch-listdata-permissionrole" data-url="{{ url('awesome_admin/role/listdatapermission') }}">
@@ -61,8 +49,8 @@
 					<div class="h6">Loading ...</div>
 				</div>
 
-				<div v-else-if="responseStatus.role === 'failed'" class="ph-data-load-status" style="display: none">
-					@{{ responseMessage.role }}
+				<div v-else-if="responseStatus.listData == 'failed'" class="ph-data-load-status" style="display: none">
+					@{{ responseMessage.listData }}
 				</div>
 
 				<div v-else class="ph-data-load-content" style="display: none">

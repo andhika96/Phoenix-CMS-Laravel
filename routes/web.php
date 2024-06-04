@@ -86,9 +86,21 @@ Route::name('admin.')
 
 		Route::controller(\Awesome_Admin_PermissionController::class)->group(function()
 		{
+			// List and Add
 			Route::get('/permission', 'index')->middleware('auth');
 			Route::post('/permission', 'store')->name('awesome_admin.permission.store')->middleware('auth');
+			
+			// Edit
+			Route::post('/permission/edit/{idOrSlug}', 'update')->name('awesome_admin.permission.update')->middleware('auth');
+
+			// Delete
+			Route::post('/permission/delete/{idOrSlug}', 'destroy')->name('awesome_admin.permission.delete')->middleware('auth');
+
+			// Get List Data
 			Route::get('/permission/listdata', 'listdata')->name('awesome_admin.permission.list')->middleware('auth');
+
+			// Get Detail Permission
+			Route::get('/permission/detaildata/{idOrSlug}', 'detailData')->name('awesome_admin.permission.detail')->middleware('auth');
 		});
 
 		Route::name('user.')

@@ -85,9 +85,22 @@ class Awesome_Admin_PermissionController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Awesome_Admin $awesome_Admin)
+    public function update(SubmitPermissionRequest $request)
     {
-        //
+        if ($request->validated())
+        {
+            $permission = Permission::find($request->route('idOrSlug'));
+
+            if ($permission !== null)
+            {
+                $permission->name = $request->input('permission_name');
+                $permission->save(); 
+
+                return response()->json(['success' => true, 'status' => 'success', 'message' => 'Data edited']);
+            }
+
+            return response()->json(['success' => false, 'status' => 'failed', 'message' => 'Data not found']);
+        }  
     }
 
     /**
@@ -95,7 +108,23 @@ class Awesome_Admin_PermissionController extends Controller
      */
     public function destroy(Awesome_Admin $awesome_Admin)
     {
-        //
+        if ($request->route('idOrSlug') > 1)
+        {
+            $permission = Permission::find($request->route('idOrSlug'));
+
+            if ($permission !== null)
+            {
+                $permission->delete(); 
+
+                return response()->json(['success' => true, 'status' => 'success', 'message' => 'Data deleted']);
+            }
+
+            return response()->json(['success' => false, 'status' => 'failed', 'message' => 'Data not found']);
+        }  
+        else
+        {
+            return response()->json(['success' => false, 'status' => 'failed', 'message' => 'Id or Slug is empty']);
+        }
     }
 
     public function listdata()
@@ -103,5 +132,17 @@ class Awesome_Admin_PermissionController extends Controller
         $roles = Permissions::get();
 
         return response()->json(['success' => true, 'status' => 'success', 'message' => 'Data found', 'data' => $roles]);
+    }
+
+    public function detailData($role_id)
+    {
+        $permission = Permissions::find($role_id);
+
+        if ($permission !== null)
+        {
+            return response()->json(['success' => true, 'status' => 'success', 'message' => 'Data found', 'data' => $permission]);
+        }
+
+        return response()->json(['success' => false, 'status' => 'failed', 'message' => 'Data not found']);
     }
 }

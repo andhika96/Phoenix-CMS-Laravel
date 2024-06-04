@@ -492,9 +492,8 @@ const ListDataRolePermissionVue3 = createApp(
 			},
 			responseDetailDataPermission: 
 			{
-				addRolePermissionModal: [],
-				viewRolePermissionModal: [],
-				editRolePermissionModal: []
+				editPermissionModal: [],
+				deletePermissionModal: []
 			},
 			responseMessage: {},
 			responseStatus: {},
@@ -813,15 +812,13 @@ const ListDataRolePermissionVue3 = createApp(
 				.then(response => 
 				{
 					this.responseData = response.data.data;
-					this.responseStatus.role = response.data.status;
-					this.responseMessage.role = response.data.message;
-
-					console.log(this.responseStatus.role);
+					this.responseStatus.listData = response.data.status;
+					this.responseMessage.listData = response.data.message;
 				})
 				.catch(function (error) 
 				{
-					this.responseStatus.role = response.data.status;
-					this.responseMessage.role = response.data.message;
+					this.responseStatus.listData = response.data.status;
+					this.responseMessage.listData = response.data.message;
 				})
 				.finally(() => 
 				{	
@@ -925,6 +922,45 @@ const ListDataRolePermissionVue3 = createApp(
 				});
 			}
 		},
+		detailDataPermission: async function(KeyId, KeyValue)
+		{
+			if (
+				document.querySelector(".ar-fetch-detail-multipledata-permission-"+KeyId+"-"+KeyValue) !== null &&
+				document.querySelector(".ar-fetch-detail-multipledata-permission-"+KeyId+"-"+KeyValue).getAttribute("data-url") !== null) 
+			{
+				const url = document.querySelector(".ar-fetch-detail-multipledata-permission-"+KeyId+"-"+KeyValue).getAttribute("data-url");
+
+				await axios.get(url+'/'+KeyValue)
+				.then(response => 
+				{
+					if (response.data.status == 'success')					
+					{
+						if (KeyId == 'editPermissionModal')
+						{
+							this.responseDetailDataPermission.editPermissionModal = response.data.data;
+						}
+						else if (KeyId == 'deletePermissionModal')
+						{
+							this.responseDetailDataPermission.deletePermissionModal = response.data.data;
+						}
+					}
+
+					this.responseStatus.detailPermissionRole = response.data.status;
+					this.responseMessage.detailPermissionRole = response.data.message;
+				})
+				.catch(function (error) 
+				{
+					this.responseStatus.detailPermissionRole = error.response.data.status;
+					this.responseMessage.detailPermissionRole = error.response.data.message;
+
+					console.log(error.response);
+				})
+				.finally(() => 
+				{
+					// Empty	
+				});
+			}
+		},
 		showModal: async function(ModalId, DataId)
 		{
 			if (ModalId == 'viewRoleModal')
@@ -971,6 +1007,44 @@ const ListDataRolePermissionVue3 = createApp(
 			else if (ModalId == 'deleteRoleModal')
 			{
 				this.detailDataRoles(ModalId, DataId);
+			}
+
+			if (ModalId == 'editPermissionModal')
+			{
+				let getIdContainer = document.getElementById("ar-fetch-detail-multipledata-permission-"+ModalId);
+
+				this.loadingData.detailPermissionRole = true;
+
+				await this.detailDataPermission(ModalId, DataId);
+
+				if (this.responseStatus.detailPermissionRole !== undefined && 
+					this.responseStatus.detailPermissionRole == 'success' || 
+					this.responseStatus.detailPermissionRole == 'failed')
+				{
+					this.loadingData.detailPermissionRole = false;
+				}
+
+				if (this.loadingData.detailPermissionRole == false)
+				{
+					window.setTimeout(function() 
+					{
+						if (getIdContainer.querySelector(".ph-data-load-status") !== null) 
+						{
+							if (getComputedStyle(getIdContainer.querySelector('.ph-data-load-status'), null).display == 'none') 
+							{
+								getIdContainer.querySelector(".ph-data-load-status").style.display = 'block';
+							}
+						}
+
+						if (getIdContainer.querySelector(".ph-data-load-content") !== null) 
+						{
+							if (getComputedStyle(getIdContainer.querySelector('.ph-data-load-content'), null).display == 'none') 
+							{
+								getIdContainer.querySelector(".ph-data-load-content").style.display = 'block';
+							}
+						}		
+					}, 100);
+				}
 			}
 		}
 	},
