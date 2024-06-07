@@ -2,7 +2,7 @@
 
 namespace App\Rules;
 
-use App\Models\User;
+use App\Models\Account;
 use Closure;
 use Illuminate\Contracts\Validation\ValidationRule;
 
@@ -15,7 +15,7 @@ class UserExists implements ValidationRule
      */
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
-        if (!User::where('email', $value)
+        if (!Account::where('email', $value)
                 ->orWhere('username', $value)
                 ->exists()
             )
