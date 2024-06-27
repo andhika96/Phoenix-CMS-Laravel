@@ -1,7 +1,7 @@
 @extends('themes.default.admin.admin_layout')
 
 @section('content')
-	<div class="arv6-box p-4">
+	<div class="arv6-box p-4" id="ph-list-data-simple">
 		<div class="arv6-header d-lg-flex justify-content-lg-between align-items-lg-center pb-3 mb-4 border-bottom">
 			<div class="h5 mb-0">
 				<i class="fad fa-user-secret fa-fw me-1"></i> Awesome Admin
@@ -28,6 +28,14 @@
 					@endforeach
 				@endif 
 			@endforeach
+		</div>
+
+		<div>
+      <div ref="elRef">
+        <div class="item" v-for="item in items" :key="item.id">
+          @{{item.name}}
+        </div>
+      </div>
 		</div>
 	</div>
 @endsection

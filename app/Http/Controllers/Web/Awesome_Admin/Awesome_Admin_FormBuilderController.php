@@ -159,4 +159,55 @@ class Awesome_Admin_FormBuilderController extends Controller
         }
         
     }
+
+    public function getModelColumns2(Request $request)
+    {
+        $data_types = 
+        [
+            'varchar'   => 'text',
+            'text'      => 'textarea',
+            'tinyint'   => 'numeric',
+            'int'       => 'numeric',
+            'bigint'    => 'numeric',
+            'timestamp' => 'date'
+        ];
+
+        try 
+        {
+            $api = new BaseApiController();
+            $model = $request->get('model');
+            $data = Schema::getColumns((new $model)->getTable());
+
+            $new_output['modelSubmit'] = preg_replace("/\\\\/", "/", $model);
+
+            foreach ($data as $key => $value)
+            {
+                $type = isset($data_types[$value['type_name']]) ? $data_types[$value['type_name']] : $value['type_name'];
+                $placeholder = str_replace('_', ' ', $value['name']);
+
+                $new_output['schema'][$value['name']] = 
+                [
+                    'type' => $type,
+                    'placeholder' => ucwords($placeholder)
+                ];
+            }
+            
+            $response = $api->setStatusMsg("success")->respondOK(array(
+                'data' => $new_output
+            ));
+        } 
+        catch (NotFoundHttpException $th) 
+        {
+            $response = $api->setStatusMsg("failed")->respondForbidden();
+        } 
+        catch (\Throwable $th) 
+        {
+            $response = $api->setStatusMsg("failed")->respondInternalError(null, $th->getMessage());
+        } 
+        finally 
+        {
+            return $response;
+        }
+        
+    }
 }

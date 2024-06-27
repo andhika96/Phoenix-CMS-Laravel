@@ -122,6 +122,7 @@ Route::name('admin.')
 			{
 				Route::get('/form', 'index')->name('index');
 				Route::get('/model/columns', 'getModelColumns')->name('model.columns');
+				Route::get('/model/columns2', 'getModelColumns2')->name('model.columns2');
 			});
 		});
 

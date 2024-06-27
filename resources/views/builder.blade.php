@@ -32,15 +32,25 @@
                     </div>
                 </div>
 
-                <div class="ph-model-columns" data-url="{{ url('awesome_admin/tools/model/columns') }}">
+                <div class="ph-model-columns" data-url="{{ url('awesome_admin/tools/model/columns2') }}">
                 </div>
 
                 <div class="d-flex">
                     <div class="">
                         <div>
-                            <div>
-                                <div v-for="(info, index) in responseData" :key="info.name">
-                                    @{{ info }}
+                            <div class="row g-3">
+                                <div v-for="(info, index) in responseData.schema" class="col-6">
+                                    <div class="input-group mb-3">
+                                        <input :type="info.type" :name="index" :placeholder="info.placeholder" class="form-control font-size-inherit">
+                                        <span class="input-group-text" id="basic-addon2">
+                                            
+                                            <div class="form-check form-switch mb-0">
+                                                <input class="form-check-input" type="checkbox" role="switch" :id="'flexSwitchCheckDefault_'+index">
+
+                                            </div>
+
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
                         </div>

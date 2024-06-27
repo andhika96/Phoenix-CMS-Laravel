@@ -1,15 +1,38 @@
 const { createApp, ref, reactive, defineModel } = Vue
+const { VueDraggable, useDraggable, vDraggable } = VueDraggablePlus
 
 createApp(
+{
+	components: { VueDraggable },
+	setup() 
 	{
-		setup() {
-			const message = ref('Hello vue!')
-
-			return {
-				message
+		const items = Vue.ref([
+			{
+				id: 1,
+				name: 'item1'
+			},
+			{
+				id: 2,
+				name: 'item2'
+			},
+			{
+				id: 3,
+				name: 'item3'
+			},
+			{
+				id: 4,
+				name: 'item4'
 			}
+		])
+
+		const elRef = Vue.ref(null)
+		useDraggable(elRef, items, { animation: 150 })
+		return {
+			items,
+			elRef
 		}
-	}).mount('#app');
+	}
+}).mount('#app');
 
 const AuthVue3 = createApp(
 	{
@@ -478,8 +501,31 @@ const BasicFunctionalityVue3 = createApp({
 
 const ListDataRolePermissionVue3 = createApp(
 {
-	data() 
+	setup() 
 	{
+		const items = Vue.ref([
+		{
+		  id: 1,
+		  name: 'item1'
+		},
+		{
+		  id: 2,
+		  name: 'item2'
+		},
+		{
+		  id: 3,
+		  name: 'item3'
+		},
+		{
+		  id: 4,
+		  name: 'item4'
+		}
+		]);
+
+		const elRef = Vue.ref(null);
+
+		useDraggable(elRef, items, { animation: 150 });
+
 		return {
 			responseData: [],
 			responseDataAllPermissionForRole: [],
@@ -501,12 +547,15 @@ const ListDataRolePermissionVue3 = createApp(
 			responseStatusAfterSubmit: ref(false),
 			successClass: 'text-bg-success',
 			dangerClass: 'text-bg-danger',
-			loadingData: {}
+			loadingData: {},
+			items,
+			elRef
 		}
 	},
 	components: 
 	{
-		vSelect: window["vue-select"]
+		vSelect: window["vue-select"],
+		VueDraggable
 	},
 	methods:
 	{
